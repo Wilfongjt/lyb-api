@@ -1,0 +1,24 @@
+{
+  "name": "lb-hapi",
+  "version": "1.0.0",
+  "description": "simple",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon --trace-warnings server.js"
+  },
+  "author": "James Wilfong <wilfongjt@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.5",
+    "@hapi/inert": "^6.0.3",
+    "@hapi/vision": "^6.1.0",
+    "core-js": "^2.6.12",
+    "dotenv": "^10.0.0",
+    "hapi": "^18.1.0",
+    "hapi-swagger": "^14.2.1",
+    "joi": "^17.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
