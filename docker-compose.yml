@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  lb-api:
+    image: dev-swagger-hapi-api
+    #image: wilfongjt/lb-api
+    #build:
+    #  context: ./lb-api
+    command: >
+      sh -c "npm install && npm install nodemon && npm run dev"
+    #volumes:
+    #  - ./lb-api:/usr/src/api
+    ports:
+      - 5555:5555
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - APP_API=${HAPI}
+      #- APP_ API_PORT=${HAPI_ PORT}
+      #- APP_ API_HOST=${HAPI_ HOST}
+      #- HAPI_ PORT=${HAPI_ PORT}
+      #- HAPI_ HOST=${HAPI_ HOST}
