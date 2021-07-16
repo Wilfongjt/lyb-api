@@ -1,8 +1,7 @@
 'use strict';
 // [Server]
 // [Server Launch]
-//import dotenv from 'dotenv';
-//require('dotenv').config();
+
 if (process.env.NODE_ENV !== 'production') {
   // [Load Environment variables when not in production]
   process.env.DEPLOY_ENV=''
