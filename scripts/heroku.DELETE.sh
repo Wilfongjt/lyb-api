@@ -1,5 +1,6 @@
 #cd 01_init_API/
  #cd lb-api/
+ # assume we are in subfolder of project repo
  cd ..
  #---------------
  # [# Remove a Specific Heroku Application]
@@ -13,15 +14,15 @@
  
    echo "del lb-api"
    # [* Remove the Git repo]
-   #git remote rm "lb-api"
+   git remote rm "lb-api"
  
    echo "del lb-api-staging"
    # [* Remove the Git Staging repo]
-   git remote rm "lb-api-staging" -f
+   git remote rm "lb-api-staging"
  
    echo "del lb-api"
    # [* Destroy the existing app]
-   #heroku apps:destroy --app "lb-api" --confirm "lb-api"
+   heroku apps:destroy --app "lb-api" --confirm "lb-api"
  
  
  #---------------
