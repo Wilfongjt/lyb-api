@@ -4,7 +4,8 @@
   "description": "simple",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --trace-warnings server.js"
+    "dev": "nodemon --trace-warnings server.js",
+    "heroku-postbuild": "npm run build"
   },
   "author": "James Wilfong <wilfongjt@gmail.com>",
   "license": "ISC",
