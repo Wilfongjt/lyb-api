@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon --trace-warnings server.js",
-    "start":"node server.js",
+    "start":"node server.js"
   },
   "author": "James Wilfong <wilfongjt@gmail.com>",
   "license": "ISC",
