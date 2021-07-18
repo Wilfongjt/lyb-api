@@ -47,23 +47,49 @@ function get_input()
    #   echo " - Skipping heroku lb-api create "
    #   echo " - Skipping heroku git create "
    #else
-      echo "Creating app: lb-api and repo: lb-api-staging"
+      #echo "Creating app: lb-api and repo: lb-api-staging"
+      echo "Creating app: lb-api"
  
       if [ $(is_heroku_app "lb-api") = "y" ]; then
         # [* Skip heroku app create when app exists on heroku.com, run lb-api.DELETE.sh to delete app]
         echo "Skipping lb-api"
       else
-         echo "Create"
-           # [* Create heroku app when app doesnt exist on heroku.com]
-           heroku apps:create lb-api -b heroku/nodejs -r "lb-api-staging"
-           # [* Create heroku git repo]
-           heroku git:remote --app lb-api --remote lb-api # add remote to local git repo
+         echo "Create and set buildpack"
+         # [* Create heroku app when app doesnt exist on heroku.com]
+         # heroku apps:create lb-api -b heroku/nodejs -r "lb-api-staging"
+         # heroku apps:create lb-api -b heroku/nodejs -r "lb-api"
  
-           # [* Configure HOST environment variable]
-           heroku config:set HOST=0.0.0.0 -a lb-api
-           # [* PORT is set by heroku and dosnt need to be set here, but rather determined in the app code]
-           # [* configure NODE_ENV environment variable]
-           heroku config:set NODE_ENV=production  -a lb-api
+         heroku apps:create lb-api -b heroku/nodejs
+ 
+         #git remote add heroku https://git.heroku.com/[[app-project]].git
+         heroku git:remote -a lb-api
+ 
+         # [* Create heroku git repo]
+         echo "---------- git:remote"
+         heroku git:remote --app lb-api --remote lb-api # add remote to local git repo
+ 
+         #echo "---------- remote rename"
+         #git remote rename heroku lb-api
+ 
+         # [* Configure HOST environment variable]
+         echo "---------- config HOST"
+         heroku config:set HOST=0.0.0.0 -a lb-api
+ 
+         # [* PORT is set by heroku and dosnt need to be set here, but rather determined in the app code]
+         # [* configure NODE_ENV environment variable]
+         echo "---------- config NODE_ENV"
+         heroku config:set NODE_ENV=production  -a lb-api
+ 
+         echo "---------- config NPM_CONFIG_PRODUCTION"
+         heroku config:set NPM_CONFIG_PRODUCTION=false  -a lb-api
+ 
+         # [* configure ]
+         #echo "---------- config HOST"
+         #heroku config:set NODE_ENV=production  -a lb-api
+ 
+         echo "---------- remote rename"
+         git remote rename heroku lb-api-staging
+ 
       fi
  
       #echo "cd lb-api/" > ${filename}
