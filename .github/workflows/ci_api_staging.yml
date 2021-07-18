@@ -24,11 +24,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      # install jest for testing in lb-a
+      # install jest for testing in lyb-api
       #- name: Install Jest
       #  run: npm install --save-dev jest
-      #  working-directory: lb-a
-      # install testing for lb-b
+      #  working-directory: lyb-api
+      
       
       # Runs a set of commands using the runners shell
       #- name: Run a multi-line script
@@ -39,7 +39,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.6.8 # This is the heroku deploy action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "lb-api-staging" #Must be unique in Heroku
+          heroku_app_name: "lyb-api" #Must be unique in Heroku
           heroku_email: "wilfongjt@gmail.com"
           
  
