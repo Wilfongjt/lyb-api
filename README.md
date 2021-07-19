@@ -1,4 +1,4 @@
-# lb-ab
+# lyb-api
 Goal: Develop a standard secure architecture.
 Strategy: Create an application that communicates with a database via a Restful API.
 Strategy: Use GitHub Actions to deploy app and api to Heroku.
@@ -10,158 +10,134 @@ Strategy: JWT to control access to application and api.
 1. Done: ~~lb-a Github Actions setup (GitHub to Heroku)~~
 1. Api integration, request POST, GET, UPDATE, DELETE
 
-1. Done: ~~Hapi api configuration (lb-api)~~
-1. Done: ~~lb-api docker-compose setup~~
+1. Done: ~~Hapi api configuration (lyb-api)~~
+1. Done: ~~lyb-api docker-compose setup~~
 1. Done: ~~lb-a heroku setup~~
-1. Done: ~~lb-api Github Actions setup (GitHub to Heroku)~~
+1. Done: ~~lyb-api Github Actions setup (GitHub to Heroku)~~
 1. Database integration, handle POST, GET, PUT, and DELETE requests
 
 1. Done:  ~~communications between Client and API~~
 1. Database (postgres) docker setup
 1. Database (postress) herok setup
-# Docker-Compose
-Before using docker-compose, build the __dev-swagger-hapi-api__ container
-[dk.build.sh](scripts/dk.build.sh)
-```
-#scripts/dk.build.sh
-docker build -t dev-swagger-hapi-api .
-docker images
-```
 
-# lb-api
+Start rewrite of this readme
+
+* Create Github Repository
+* Clone repo
+* Setup Hapi
+* Configure docker-compose
+* Commit to  Git repository
+
+# lyb-api
 A Hapi API
 Goal: Create an node API deployed to Heroku
+Strategy: Use Hapi api framework
 
-* 01-init
-    * Setup API (lb-api/lb-api)
-        * Setup node application
-        * Setup hapi api
-        * Setup swagger
-        * Setup JOI validation
-        * Setup Jest testing
-    * Configure docker-compose for lb-api
-        * Use Swagger to check configuration  (http://0.0.0.0:5555/documentation)
-    * Commit to  Git repository
+# Overview
+1. Github
+1. Hapi
+1. Docker-Compose
+1. Heroku
+1. Git Actions           
+1. Swagger
 
-    * Setup Heroku for lb-api
-    * Create heroku app (one time)
+## To-do
+* Enable a postgres installation in heroku
+* Create a staging process for heroku
 
-    * Create heroku app lb-api
-    * Configure heroku settings, HOST 0.0.0.0    
-    * Configure GitHub Actions for lb-api
-    * Configure Actions secret.HEROKU_API_KEY=<your heroku key>
+# Github
+1. create a repo to store your Hapi
 
-
-* Commit lb-ab to repo
-* Open https://lb-api.herokuapp.com/documentation
-
-
-## Development Environment
+# Hapi
+1. Setup node application
 ```
-echo "# lb-api" > .env
-echo "NODE_ENV='developmemt'" >> .env
-echo "HAPI='{\"host\":\"0.0.0.0\",\"port\":\"5555\"}'" >> .env
-
-```
-## Heroku Environment
-```
-NODE_ENV='production'
-HOST=0.0.0.0
-# PORT=Heroku generates a port which is stored in process.env.PORT
-
+mkdir lyb-api
+cd lyb-api\
+npm init
 ```
 
-## Node
-## Development Setup
-### Hapi
-
+1. Setup hapi api
 ```
-  mkdir lb-api
-  cd lb-api\
+  cd lyb-api\
   npm init
   npm install @hapi/hapi
-
-```
-### Development Environment
-```
-npm install dotenv
 ```
 
-### Swagger
+1. Add node packages
 ```
-npm install @hapi/hapi
-npm install @hapi/inert
-npm install @hapi/vision
-npm install hapi-swagger
+  cd lyb-api\
+  # Development Environment
+  npm install dotenv
+
+  # Swagger
+  npm install @hapi/hapi
+  npm install @hapi/inert
+  npm install @hapi/vision
+  npm install hapi-swagger
+
+  # JOI Validation
+  npm install joi
+
+  # Jest Testing
+  npm install jest
 ```
-### JOI Validation
-```
-npm install joi
-```
-### Jest Testing
-```
-npm install jest
-```
-
-## Dockerfile
-```
-FROM node:14.15.1
-
-# set target folder for app
-WORKDIR /usr/src/api
-
-# ENV NODE_ENV production
-ENV NODE_ENV development
-
-# need only packages to get started
-COPY package*.json ./
-
-# update all the packages in node_modules
-RUN npm install
-
-# move code from repo to container
-COPY . .
-
-EXPOSE 5555
-
-CMD ["npm", "dev"]
-
-```
-## Docker-Compose
-```
-version: '3'
-services:
-  # ... add following
-
-  lb-api:
-      image: dev-swagger-hapi-api
-      #build:
-      #  context: ./lb-api
-      command: >
-        sh -c "npm install && npm install nodemon && npm run dev"
-
-      ports:
-        - 5555:5555
-      environment:
-        - NODE_ENV=${NODE_ENV}
-        - APP_API=${HAPI}
-
-
-```
-
-GitHub Actions
-* [ci-ab.yml](.github/workflow/ci-ab.yml)
-
-Swagger on Heroku
-```
-open -a safari https://lb-api.herokuapp.com/documentation
-```
-
-CORS
-* setup CORS in handler option of route (eg. lib/routes/salutation_route.js)
+1. Add a Hapi route
+   1. lib/routes/salutaion_route.js
+1. Configure CORS
+   1. Setup CORS in handler option of route (eg. lib/routes/salutation_route.js)
 ```
   cors: {
     origin:["*"],
     headers:['Accept', 'Authorization', 'Content-Type', 'If-None-Match', 'Content-Profile']
   }
+```
+
+  1. Setup Development Environment
+```
+# .env
+echo "# lyb-api" > .env
+echo "NODE_ENV='developmemt'" >> .env
+echo "HAPI='{\"host\":\"0.0.0.0\",\"port\":\"5555\"}'" >> .env
+```
+
+## Docker-Compose
+Before using docker-compose, build the __dev-swagger-hapi-api__ container
+* Manually Build Docker Container
+```
+#scripts/dk.build.sh
+docker build -t dev-swagger-hapi-api --force-rm .
+docker images
+```
+* Start docker-compose
+```
+docker-compose up
+```
+
+## Heroku
+1. Manually create heroku app
+1. Set GitHub Repository
+1. Configure Application Environment
+```
+# scripts/heroku.config.sh
+heroku login
+heroku config:set HOST=0.0.0.0 -a lyb-api
+heroku config:set NODE_ENV=production  -a lyb-api
+heroku config:set NPM_CONFIG_PRODUCTION=false  -a lyb-api
+```
+1. Manually Add Buildpack heroku/nodejs
+1. Setup Heroku Environment
+
+## Git Actions
+1. Configure GitHub Actions
+   1. .github/workflows/ci_api_staging.yml
+1. Configure GitHub secret.HEROKU_API_KEY=\<your heroku key>
+
+## Swagger
+* Run swagger to check docker-compose
+```
+open -a safari http://0.0.0.0:5555/documentation
+```
+* Run swagger to check heroku install
+```
+open -a safari https://lyb-api.herokuapp.com/documentation
 ```
