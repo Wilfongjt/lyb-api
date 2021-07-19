@@ -42,4 +42,3 @@ jobs:
           heroku_app_name: "lyb-api" #Must be unique in Heroku
           heroku_email: "wilfongjt@gmail.com"
           
- 
