@@ -4,8 +4,10 @@
   "description": "simple",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --trace-warnings server.js",
-    "start":"node server.js"
+    "dev2": "nodemon --trace-warnings server.js",
+    "dev3": "nodemon ./server.js",
+    "dev": "node ./server.js",
+    "start": "node server.js"
   },
   "author": "James Wilfong <wilfongjt@gmail.com>",
   "license": "ISC",
@@ -15,7 +17,6 @@
     "@hapi/vision": "^6.1.0",
     "core-js": "^2.6.12",
     "dotenv": "^10.0.0",
-    "hapi": "^18.1.0",
     "hapi-swagger": "^14.2.1",
     "joi": "^17.4.1"
   },
