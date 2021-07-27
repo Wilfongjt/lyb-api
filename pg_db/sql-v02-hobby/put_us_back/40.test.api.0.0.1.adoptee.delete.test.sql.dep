@@ -1,0 +1,107 @@
+\c pg_db;
+
+SET search_path TO api_0_0_1, base_0_0_1, public;
+
+/*
+Delete
+
+
+*/
+-------------------
+-- Adoptee
+------------------
+
+BEGIN;
+
+insert into base_0_0_1.one (pk,sk,tk,form,owner) values (
+  'asset_id#JJJ_1234567',
+  'const#ADOPTEE',
+  'asset_user#JJJ_1234567+9876543210',
+  '{"asset_id":"JJJ_1234567", "user_tk":"9876543210", "asset_user":"JJJ_1234567+9876543210", "name":"Drain name", "jurisdiction":"Grand Haven", "discharge":"Grand River", "system_use_code":"Storm Drain", "lat":42.0, "lon": -84.00}'::JSONB,
+  '9876543210' );
+  \set valid_pk 'JJJ_1234567#9876543210'::TEXT
+  \set guest_token sign(current_setting('''app.postgres_jwt_claims''')::JSON,current_setting('''app.settings.jwt_secret'''))::TEXT
+  \set user_token sign((current_setting('''app.postgres_jwt_claims''')::JSONB || '''{"user":"delete@user.com", "scope":"api_user","key":"9876543210"}'''::JSONB)::JSON, current_setting('''app.settings.jwt_secret'''))::TEXT
+  \set user_token_1 sign((current_setting('''app.postgres_jwt_claims''')::JSONB || '''{"user":"delete1@user.com", "scope":"api_user","key":"query1UserKey"}'''::JSONB)::JSON, current_setting('''app.settings.jwt_secret'''))::TEXT
+
+
+  SELECT plan(14);
+
+  -- 1 Delete
+  SELECT has_function(
+      'api_0_0_1',
+      'adoptee',
+      ARRAY[ 'TEXT', 'TEXT'],
+      'Function Adoptee Delete (text, text) exists'
+  );
+
+--2  try to Delete with Null token and Null pk
+  SELECT is (
+    api_0_0_1.adoptee(
+      NULL::TEXT,
+      NULL::TEXT
+    )::JSONB,
+    '{"msg": "Forbidden", "user": "postgres", "extra": "Invalid token", "status": "403"}'::JSONB,
+    'A NULL token cant Delete a Adoptee 0_0_1'::TEXT
+  );
+
+  --3  try Delete with wrong token and null pk
+    SELECT is (
+      api_0_0_1.adoptee(
+        :guest_token,
+        NULL::TEXT
+      )::JSONB,
+      '{"msg": "Unauthorized", "status": "401"}'::JSONB,
+      'A guest_token cant Delete a Adoptee 0_0_1'::TEXT
+    );
+
+    --4  try to Delete with null pk
+    SELECT is (
+      api_0_0_1.adoptee(
+        :user_token,
+        NULL::TEXT
+      )::JSONB,
+      '{"msg": "Bad Request", "status": "400"}'::JSONB,
+      'A user_token cant Delete a Adoptee 0_0_1'::TEXT
+    );
+
+    --5  try to Delete with no pk value
+    SELECT is (
+      api_0_0_1.adoptee(
+        :user_token,
+        ''::TEXT
+      )::JSONB,
+      '{"msg": "Not Found", "owner": "9876543210", "status": "404", "criteria": {"pk": "asset_id#JJJ_1234567", "sk": "const#ADOPTEE"}}'::JSONB,
+      'A user_token cant Delete a blank Adoptee 0_0_1'::TEXT
+    );
+    --6  try to Delete with wrong token
+    SELECT is (
+      api_0_0_1.adoptee(
+        :user_token_1,
+        :valid_pk
+      )::JSONB ,
+      '{"msg": "Not Found", "owner": "query1UserKey", "status": "404", "criteria": {"pk": "asset_id#JJJ_1234567", "sk": "const#ADOPTEE"}}'::JSONB,
+      'Adoptee Delete 404 0_0_1'::TEXT
+    );
+    --7  Delete OK
+    SELECT is (
+      (api_0_0_1.adoptee(
+        :user_token,
+        :valid_pk
+      )::JSONB - '{criteria,deletion}'::text[]),
+      '{"msg": "OK", "status": "200"}'::JSONB,
+      'Adoptee Delete 200 0_0_1'::TEXT
+    );
+    -- 8  Delete Double Dip
+    SELECT is (
+      api_0_0_1.adoptee(
+        :user_token,
+        :valid_pk
+      )::JSONB ->> 'status',
+      '404',
+      'Adoptee Delete 404 0_0_1'::TEXT
+    );
+
+  SELECT * FROM finish();
+
+ROLLBACK;
