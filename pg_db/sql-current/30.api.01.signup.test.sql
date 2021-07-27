@@ -19,7 +19,7 @@ BEGIN;
   --\set user_token base_0_0_1.sign((current_setting('''app.postgres_jwt_claims''')::JSONB || '''{"user":"signup@user.com", "scope":"api_user"}'''::JSONB)::JSON, current_setting('''app.settings.jwt_secret'''))::TEXT
   --\set admin_ token base_0_0_1.sign((current_setting('''app.postgres_jwt_claims''')::JSONB || '''{"user":"signup@user.com", "scope":"api_admin"}'''::JSONB)::JSON, current_setting('''app.settings.jwt_secret'''))::TEXT
   
-  Select :guest_token;
+  --Select :guest_token;
   --Select :user_token;
   
   -- insert

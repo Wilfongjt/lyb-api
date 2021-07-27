@@ -17,20 +17,11 @@ SET search_path TO api_0_0_1, base_0_0_1, public;
 
 BEGIN;
 
---insert into base_0_0_1.one (pk,sk,form,owner) values ('username#signin@user.com', 'const#USER', '{"username":"signin@user.com","sk":"const#USER"}'::JSONB, 'signinOwner' );
-
-  --\set guest_token public.sign(current_setting('''app.postgres_jwt_claims''')::JSON,current_setting('''app.settings.jwt_secret'''))::TEXT
-  --\set guest_token sign(current_setting('''app.postgres_jwt_claims''')::JSON,current_setting('''app.settings.jwt_secret'''))::TEXT
-
   \set jwt_claims_guest  base_0_0_1.get_jwt_claims('''guest''','''api_guest''','''0''')
-  --\set jwt_claims_user get_jwt_claims('''signup@user.com''','''api_user''','''0''')
 
   \set jwt_secret  base_0_0_1.get_jwt_secret()
   \set guest_token base_0_0_1.sign(:jwt_claims_guest::JSON, :jwt_secret::TEXT)::TEXT
-  --\set user_token  base_0_0_1.sign(:jwt_claims_user::JSON, :jwt_secret::TEXT)::TEXT
 
-  --insert into base_0_0_1.one (pk,sk,form,owner) values ('username#signin@user.com', 'const#USER', '{"username":"signin@user.com","sk":"const#USER","password":"a1A!aaaa"}'::JSONB, 'signinOwner' );
-select * from base_0_0_1.one;
 
   select api_0_0_1.signup(
 
@@ -40,7 +31,6 @@ select * from base_0_0_1.one;
 
   );
 
-select * from base_0_0_1.one;
 
 
   SELECT plan(8);
@@ -116,9 +106,6 @@ select * from base_0_0_1.one;
   );
 
   -- 5
-
-  --sign((current_setting('app.postgres_jwt_claims')::JSONB || '{"user":"guest", "key":"0", "scope":"api_guest"}'::JSONB)::JSON, current_setting('app.settings.jwt_secret'))::TEXT,
-  --      base_0_0_1.sign((current_setting('app.postgres_jwt_claims')::JSONB || '{"user":"guest", "key":"0", "scope":"api_guest"}'::JSONB)::JSON, current_setting('app.settings.jwt_secret'))::TEXT,
 
   SELECT is (
 

@@ -1,6 +1,6 @@
 
 # Scripts
-* pg_db/sql is most current version (sql-v02-hobby)
+* pg_db/sql-current is most current version (sql-v02-hobby)
 * sql-v02-hobby is hobby friendly
 * sql-v01 is original version (full postgres but not forward compatable) 
 
