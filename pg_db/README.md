@@ -1,5 +1,11 @@
+
+# Scripts
+* pg_db/sql is most current version (sql-v02-hobby)
+* sql-v02-hobby is hobby friendly
+* sql-v01 is original version (full postgres but not forward compatable) 
+
 # Postgres
-* version 11
+* version 13
 * JWT
 * Docker
 * Docker-compose

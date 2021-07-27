@@ -11,6 +11,11 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # backups
 *.backup
+backup/
+backups/
+
+# deprecated files
+*.dep
 
 # Runtime data
 pids

@@ -4,11 +4,10 @@ services:
   # POSTGRES
   # https://hub.docker.com/_/postgres
   #########
-
   db:
+    container_name: pg_hobby
     image: postgres
     restart: always
-
     build:
         context: ./pg_db
         dockerfile: dockerfile-db
@@ -30,9 +29,7 @@ services:
       - "./pg_db/sql:/docker-entrypoint-initdb.d"
       # Uncomment this if you want to persist the data.
       #- "~/.data/aad_db/pgdata:/var/lib/postgresql/data"
-    #networks:
-    #  - lb-backend
-    #restart: always
+
 
   lb-api:
     image: dev-swagger-hapi-api
