@@ -1,0 +1,15 @@
+FROM postgres:13
+
+RUN apt-get update && apt-get install -y make git postgresql-server-dev-13 postgresql-13-pgtap
+
+# RUN mkdir "/postgres-hobby"
+# WORKDIR "/postgres-hobby"
+
+RUN mkdir "/postgres-current"
+WORKDIR "/postgres-current"
+COPY . .
+#RUN make && make install
+
+# fire up postres with new config file
+
+CMD ["postgres"]

@@ -1,53 +1,111 @@
 version: '3'
+
 services:
+
   #############
+
   # POSTGRES
+
   # https://hub.docker.com/_/postgres
+
   #########
+
+
+
   db:
-    container_name: pg_hobby
+
     image: postgres
+
     restart: always
+
+
+
     build:
+
         context: ./pg_db
+
         dockerfile: dockerfile-db
 
+
+
     ports:
+
       - "5433:5432"
 
+
+
     environment:
+
       #- POSTGRES_HOST=postgres
+
       - POSTGRES_DB=${POSTGRES_DB}
+
       - POSTGRES_USER=${POSTGRES_USER}
+
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
       - POSTGRES_JWT_SECRET=${POSTGRES_JWT_SECRET}
+
       - POSTGRES_API_PASSWORD=${POSTGRES_API_PASSWORD}
+
       - POSTGRES_JWT_CLAIMS=${POSTGRES_JWT_CLAIMS}
 
+
+
     volumes:
+
       # anything in initdb directory is created in the database
+
       - "./pg_db/sql:/docker-entrypoint-initdb.d"
+
       # Uncomment this if you want to persist the data.
+
       #- "~/.data/aad_db/pgdata:/var/lib/postgresql/data"
+
+    #networks:
+
+    #  - lb-backend
+
+    #restart: always
+
 
 
   lb-api:
+
     image: dev-swagger-hapi-api
+
     #image: wilfongjt/lb-api
+
     build:
+
       context: .
+
     command: >
+
       sh -c "npm install && npm install nodemon && npm run dev"
+
     volumes:
+
       - .:/usr/src/api
+
     ports:
+
       - 5555:5555
+
     environment:
+
       - NODE_ENV=${NODE_ENV}
+
       - HOST=0.0.0.0
+
       - PORT=5555
+
       #- APP_ API=${HAPI_PORT}
+
       #- APP_ API_PORT=${HAPI_ PORT}
+
       #- APP_ API_HOST=${HAPI_ HOST}
+
       #- HAPI_ PORT=${HAPI_ PORT}
+
       #- HAPI_ HOST=${HAPI_ HOST}
