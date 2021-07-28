@@ -1,4 +1,4 @@
-
+/*
 \c pg_db
 
 
@@ -46,7 +46,7 @@ AS $$
   END;
 
 $$ LANGUAGE plpgsql;
-
+*/
 -- GRANT: Grant Execute
 /* Doesnt work in Hobby
 grant EXECUTE on FUNCTION base_0_0_1.event_logger_validate(JSONB) to event_logger_role; -- upsert
