@@ -26,7 +26,7 @@ services:
 
     volumes:
       # anything in initdb directory is created in the database
-      - "./pg_db/sql:/docker-entrypoint-initdb.d"
+      - "./pg_db/sql-current:/docker-entrypoint-initdb.d"
       # Uncomment this if you want to persist the data.
       #- "~/.data/aad_db/pgdata:/var/lib/postgresql/data"
 
@@ -44,8 +44,14 @@ services:
       - 5555:5555
     environment:
       - NODE_ENV=${NODE_ENV}
-      - HOST=0.0.0.0
-      - PORT=5555
+      - HOST=${API_HOST}
+      - PORT=${API_PORT}      
+      - API_TOKEN=${API_TOKEN}
+      - API_DB_CONFIG=${API_DB_CONFIG}
+      - API_DB_USER_CONFIG=${API_DB_USER_CONFIG}
+      - API_JWT_SECRET=${API_JWT_SECRET}
+      - API_JWT_CLAIMS=${API_JWT_CLAIMS}
+
       #- APP_ API=${HAPI_PORT}
       #- APP_ API_PORT=${HAPI_ PORT}
       #- APP_ API_HOST=${HAPI_ HOST}
