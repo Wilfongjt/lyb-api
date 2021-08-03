@@ -5,22 +5,28 @@
   "main": "server.js",
   "scripts": {
     "dev2": "nodemon --trace-warnings server.js",
-    "dev3": "nodemon ./server.js",
-    "dev": "node ./server.js",
-    "start": "node server.js"
+    "dev": "nodemon ./server.js",
+    "dev3": "node ./server.js",
+    "start": "node server.js",
+    "test": "lab -l -v */*.test.js"
   },
   "author": "James Wilfong <wilfongjt@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^20.1.5",
     "@hapi/inert": "^6.0.3",
+    "@hapi/jwt": "^2.0.1",
     "@hapi/vision": "^6.1.0",
     "core-js": "^2.6.12",
     "dotenv": "^10.0.0",
     "hapi-swagger": "^14.2.1",
-    "joi": "^17.4.1"
+    "joi": "^17.4.1",
+    "pg": "^8.7.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@hapi/code": "^8.0.3",
+    "@hapi/lab": "^24.3.2",
     "nodemon": "^2.0.12"
   }
 }
