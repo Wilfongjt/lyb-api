@@ -3,35 +3,36 @@ Heroku Deployment from GitHub
 
 Process 
 ```
-   |
-   + <------- (rebase) <----- +
-   |                          ^
-   |                          |
-[Github] ---> (clone) ---> [Development]
-   |
-(pull request)
-   |   
-[GitHub Actions]
-   |
-[Heroku]
+                  *
+                  |
+                  + <--------- (rebase branch) <------------ +
+                  |                                          ^
+                  |                                          |
+Github         [Version Control] ---> (clone branch) ---> [Development]
+                  |   |                                      ^
+                  |   |                                      |
+                  |   + ------------> (pull branch) -------> +
+                  |
+               (pull request from branch to main)
+                  |   
+GitHub Actions [CI/CD]
+                  |
+Heroku         [Development Deployment]
+                  |
+               [Staging Deployment]
+                  |
+               [Production Deployment]   
 ```
 
 ## Prerequisites
- 
+
 1. [GitHub Account](https://github.com)
-
+1. Application Programming Inteface Repository  
 1. [Heroku Account](https://id.heroku.com/login)
-
-
-1. Create API_JWT_SECRET
-1. Create API_JWT_CLAIMS 
-1. Create API_TOKEN
-
 
 # Setup
 # GitHub Setup 
-1. GitHub Actions
-1. Create a workflow
+1. GitHub Actions Workflow
 
 ## Heroku Setup
 1. Create new app (the API)
@@ -45,18 +46,14 @@ Process
     * HOST
     * NODE_ENV
     * NPM_CONFIG_PRODUCTION
-    * API_DB_CONFIG
-    * API_JWT_SECRET
-    * API_JWT_CLAIMS
+    * JWT_SECRET
+    * JWT_CLAIMS
     * API_TOKEN
-
-
 
 # Details
 ### Connect to GitHub
-### Create API_DB_CONFIG
-### Create API_JWT_SECRET
-### Create API_JWT_CLAIMS
+### Create JWT_SECRET
+### Create JWT_CLAIMS
 ### Create API_TOKEN
 ### Create new app 
 ### Create Database
@@ -67,3 +64,5 @@ Process
 ### HOST
 ### NODE_ENV
 ### NPM_CONFIG_PRODUCTION
+
+
