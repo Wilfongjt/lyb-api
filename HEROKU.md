@@ -50,10 +50,11 @@ Heroku         [Development Deployment]
     * JWT_CLAIMS
     * API_TOKEN
 
-## Heroku Password, Token Updates
+## Hobby Heroku Password, Token Updates
 1. Update JWT_SECRET then also update API_TOKEN at the same time
+   *  Cannot update JWT_SECRET in Hobby, use the syslog_ident value (SHOW ALL;)
 1. Update JWT_CLAIMS then also update JWT_SECRET and API_TOKEN 
-1. Best practice 
+
 
 # Details
 ### Connect to GitHub
