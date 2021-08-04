@@ -26,7 +26,7 @@ jobs:
 
       # install testing, @hapi/lab and @hapi/code
       - name: Install Lab and Code
-        run: npm intall --save-dev @hapi/lab @hapi/code
+        run: npm install --save-dev @hapi/lab @hapi/code
         working-directory: lyb-api
       
       # Runs a set of commands using the runners shell
