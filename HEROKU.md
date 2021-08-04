@@ -50,11 +50,16 @@ Heroku         [Development Deployment]
     * JWT_CLAIMS
     * API_TOKEN
 
+## Heroku Password, Token Updates
+1. Update JWT_SECRET then also update API_TOKEN at the same time
+1. Update JWT_CLAIMS then also update JWT_SECRET and API_TOKEN 
+1. Best practice 
+
 # Details
 ### Connect to GitHub
-### Create JWT_SECRET
-### Create JWT_CLAIMS
-### Create API_TOKEN
+### Create JWT_SECRET 
+### Create JWT_CLAIMS 
+### Create API_TOKEN 
 ### Create new app 
 ### Create Database
 ### Create Database Table
@@ -64,5 +69,8 @@ Heroku         [Development Deployment]
 ### HOST
 ### NODE_ENV
 ### NPM_CONFIG_PRODUCTION
+### Update JWT_SECRET (on change, manually create new API_TOKEN )
+### Update JWT_CLAIMS (on change, update JWT_SECRET and create new API_TOKEN )
+### Update API_TOKEN (on change, update JWT_SECRET)
 
 
