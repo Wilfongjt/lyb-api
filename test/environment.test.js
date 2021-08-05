@@ -32,7 +32,7 @@ describe('Environment', () => {
     expect(process.env.HOST).to.exists();
     
   })
-  it('DATABASE_URL DATABASE_URL', () => {
+  it('Environment DATABASE_URL', () => {
 
     expect(process.env.DATABASE_URL).to.exists();
     
