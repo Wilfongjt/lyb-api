@@ -5,7 +5,7 @@ const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
 /*
 import dotenv from 'dotenv';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   process.env.DEPLOY_ENV=''
 
   const path = require('path');
