@@ -18,5 +18,9 @@ describe('Environment', () => {
     
 
   })
+  it('Environment Types ', () => {
 
+    expect(typeof(process.env.JWT_CLAIMS)).to.equal('string');
+    
+  })
 });
