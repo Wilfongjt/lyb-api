@@ -9,12 +9,13 @@ describe('Environment', () => {
   // Initialize
   it('Environment ', () => {
 
-    expect(typeof(process.env.NODE_ENV)).to.exists();
-    expect(typeof(process.env.JWT_CLAIMS)).to.exists();
-    expect(typeof(process.env.JWT_SECRET)).to.exists();
-    expect(typeof(process.env.API_TOKEN)).to.exists();
-    expect(typeof(process.env.HOST)).to.exists();
-    expect(typeof(process.env.DATABASE_URL)).to.exists();
+    expect(process.env.NODE_ENV).to.exists();
+    expect(process.env.JWT_CLAIMS).to.exists();
+    expect(process.env.JWT_SECRET).to.exists();
+    expect(process.env.API_TOKEN).to.exists();
+    expect(process.env.HOST).to.exists();
+    expect(process.env.DATABASE_URL).to.exists();
+    
 
   })
 
