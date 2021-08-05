@@ -51,7 +51,7 @@ describe('Signup Route ', () => {
           }
       });
       
-      console.log('test','signup', res.result);
+      //console.log('test signup', res.result);
       
       expect(res.statusCode).to.equal(200);
       expect(res.result.status).to.equal("200");
