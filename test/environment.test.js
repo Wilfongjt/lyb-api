@@ -8,7 +8,7 @@ const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
 describe('Environment', () => {
   // Initialize
   it('Environment NODE_ENV', () => {
-
+    console.log('process.env.NODE_ENV',process.env.NODE_ENV);
     expect(process.env.NODE_ENV).to.exists();
 
   })
@@ -18,12 +18,12 @@ describe('Environment', () => {
 
   //})
   it('Environment JWT_SECRET', () => {
-
+    //console.log('process.env.JWT_SECRET',process.env.JWT_SECRET.length);
     expect(process.env.JWT_SECRET).to.exists();
 
   })
   it('Environment API_TOKEN', () => {
-
+    console.log('process.env.API_TOKEN',process.env.API_TOKEN)
     expect(process.env.API_TOKEN).to.exists();
 
   })
@@ -36,7 +36,6 @@ describe('Environment', () => {
 
     expect(process.env.DATABASE_URL).to.exists();
     
-
   })
 
   //it('Environment Types JWT_ CLAIMS', () => {
