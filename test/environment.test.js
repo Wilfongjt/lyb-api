@@ -12,11 +12,11 @@ describe('Environment', () => {
     expect(process.env.NODE_ENV).to.exists();
 
   })
-  it('Environment JWT_CLAIMS', () => {
+  //it('Environment JWT_ CLAIMS', () => {
 
-    expect(process.env.JWT_CLAIMS).to.exists();
+  //  expect(process.env.JWT_ CLAIMS).to.exists();
 
-  })
+  //})
   it('Environment JWT_SECRET', () => {
 
     expect(process.env.JWT_SECRET).to.exists();
@@ -39,9 +39,9 @@ describe('Environment', () => {
 
   })
 
-  it('Environment Types JWT_CLAIMS', () => {
+  //it('Environment Types JWT_ CLAIMS', () => {
 
-    expect(typeof(process.env.JWT_CLAIMS)).to.equal('string');
+  //  expect(typeof(process.env.JWT_ CLAIMS)).to.equal('string');
     
-  })
+  //})
 });
