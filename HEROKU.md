@@ -17,7 +17,7 @@ Github         [Version Control] ---> (clone branch) ---> [Development]
                   |   
 GitHub Actions [CI/CD]
                   |
-Heroku         [Development Deployment]
+Heroku         [Review Deployment]
                   |
                [Staging Deployment]
                   |
