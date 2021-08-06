@@ -5,7 +5,7 @@ const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
 /*
 import dotenv from 'dotenv';
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   process.env.DEPLOY_ENV=''
 
   const path = require('path');
@@ -32,9 +32,6 @@ describe('ChelateUser New', () => {
     };
     let chelateUserForm = new ChelateUser(form);
     let chelateUserChelate = new ChelateUser(chelate);
-
-    //console.log('chelateUser1', chelateUserForm);
-    //console.log('chelateUser2', chelateUserChelate);
 
     // New from Form
     expect(chelateUserForm).to.exist();
