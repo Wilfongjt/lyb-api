@@ -34,6 +34,7 @@ describe('Password', () => {
     expect(form.password.salt).to.exist();
 
   })
+  
   it('Verify Hashed Password', () => {
    let mypass = "a1A!aaaa";
    let form = {

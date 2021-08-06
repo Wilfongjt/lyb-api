@@ -8,7 +8,7 @@ const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
 describe('Environment', () => {
   // Initialize
   it('Environment NODE_ENV', () => {
-    console.log('process.env.NODE_ENV',process.env.NODE_ENV);
+    console.log('Environment process.env.NODE_ENV',process.env.NODE_ENV);
     expect(process.env.NODE_ENV).to.exists();
 
   })
@@ -23,7 +23,7 @@ describe('Environment', () => {
 
   })
   it('Environment API_TOKEN', () => {
-    console.log('process.env.API_TOKEN',process.env.API_TOKEN)
+    console.log('Environment process.env.API_TOKEN',process.env.API_TOKEN)
     expect(process.env.API_TOKEN).to.exists();
 
   })

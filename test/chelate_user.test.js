@@ -33,9 +33,6 @@ describe('ChelateUser New', () => {
     let chelateUserForm = new ChelateUser(form);
     let chelateUserChelate = new ChelateUser(chelate);
 
-    //console.log('chelateUser1', chelateUserForm);
-    //console.log('chelateUser2', chelateUserChelate);
-
     // New from Form
     expect(chelateUserForm).to.exist();
     // New from Chelate
