@@ -36,6 +36,9 @@ jobs:
           npm test
         env:
           JWT_SECRET: ${{secrets.JWT_SECRET}}
+          API_TOKEN: ${{secrets.API_TOKEN}}
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          HOST: "0.0.0.0"
       # Runs a set of commands using the runners shell
       #- name: Run Tests
       #  run: npm run test
