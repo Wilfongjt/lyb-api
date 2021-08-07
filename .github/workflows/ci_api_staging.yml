@@ -40,7 +40,6 @@ jobs:
       #- name: Run Tests
       #  run: npm run test
       #  #working-directory: lyb-api
-      
       # This is the heroku deploy action
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
