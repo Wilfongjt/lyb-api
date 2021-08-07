@@ -21,6 +21,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -28,6 +29,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
             node-version: ${{ matrix.node-version }}
+        env:
+          JWT_SECRET: fe5d9645_302a_493d_b9de_207dfa16ca9c
       - run: npm install @hapi/lab @hapi/code
       - run: npm run build --if-present
       - run: npm test
@@ -38,7 +41,7 @@ jobs:
       #  #working-directory: lyb-api
       
       # This is the heroku deploy action
-      - uses: akhileshns/heroku-deploy@v3.6.8 
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "lyb-api" #Must be unique in Heroku
