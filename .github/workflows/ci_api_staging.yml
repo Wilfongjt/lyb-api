@@ -30,7 +30,8 @@ jobs:
         with:
             node-version: ${{ matrix.node-version }}
         env:
-          JWT_SECRET: fe5d9645_302a_493d_b9de_207dfa16ca9c
+          JWT_SECRET: zxcvbnmasdfghjklqwertyuiopzxcvbnm
+      - run: npm install
       - run: npm install @hapi/lab @hapi/code
       - run: npm run build --if-present
       - run: npm test
