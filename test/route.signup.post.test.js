@@ -4,7 +4,6 @@ const Lab = require('@hapi/lab');
 const { expect } = require('@hapi/code');
 const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
 const { init } = require('../lib/server');
-//const { init } = require('../server');
 
 const TestTokenPayload = require('./util/token_payload_test.js');
 const Jwt = require('@hapi/jwt');
