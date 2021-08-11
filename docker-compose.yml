@@ -44,12 +44,12 @@ services:
       - 5555:5555
     environment:
       - NODE_ENV=${NODE_ENV}
-      - HOST=${API_HOST}
-      - PORT=${API_PORT}      
-      - DATABASE_URL=${API_DATABASE_URL}
+      - HOST=${HOST}
+      - PORT=${PORT}      
+      - DATABASE_URL=${DATABASE_URL}
       - API_TOKEN=${API_TOKEN}
-      - JWT_SECRET=${API_JWT_SECRET}
-      - JWT_CLAIMS=${API_JWT_CLAIMS}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_CLAIMS=${JWT_CLAIMS}
       #- API_DB_USER_CONFIG=${API_DB_USER_CONFIG}
       #- APP_ API=${HAPI_PORT}
       #- APP_ API_PORT=${HAPI_ PORT}
