@@ -141,7 +141,19 @@ open -a safari http://0.0.0.0:5555/documentation
 ```
 open -a safari https://lyb-api.herokuapp.com/documentation
 ```
+## Issue
 
+```
+{
+  "statusCode": 401,
+  "error": "Unauthorized",
+  "message": "Invalid token signature",
+  "attributes": {
+    "error": "Invalid token signature"
+  }
+}
+```
+* Cause: Indcates a bad password/secret. This often happens when the JWT_SECRET has changed.  Solution: Generate a new token using the updated secret.
 
 ## History
 
@@ -151,3 +163,5 @@ open -a safari https://lyb-api.herokuapp.com/documentation
 1. disable salutation route
 1. disable Joi in lib/server.js
 1. enable detection of heroku production environment
+
+
