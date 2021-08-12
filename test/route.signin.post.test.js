@@ -4,6 +4,7 @@
 // 'use strict';
 /*
 This test has trouble connecting to database
+test manually with swagger
 
 const Jwt = require('@hapi/jwt');
 

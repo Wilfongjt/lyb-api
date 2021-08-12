@@ -3,6 +3,7 @@
 // 'use strict';
 /*
 This test has trouble connecting to database
+test manually with swagger
 
 const Lab = require('@hapi/lab');
 
