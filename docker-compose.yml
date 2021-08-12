@@ -31,9 +31,9 @@ services:
       #- "~/.data/aad_db/pgdata:/var/lib/postgresql/data"
 
 
-  lb-api:
+  db-api:
     image: dev-swagger-hapi-api
-    #image: wilfongjt/lb-api
+    #image: wilfongjt/db-api
     build:
       context: .
     command: >

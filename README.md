@@ -141,3 +141,13 @@ open -a safari http://0.0.0.0:5555/documentation
 ```
 open -a safari https://lyb-api.herokuapp.com/documentation
 ```
+
+
+## History
+
+1. add eslint and cleanup code
+1. disable user routes
+1. disable home route
+1. disable salutation route
+1. disable Joi in lib/server.js
+1. enable detection of heroku production environment
