@@ -1,12 +1,14 @@
-'use strict';
-
 const Lab = require('@hapi/lab');
-const { expect } = require('@hapi/code');
-const { afterEach, beforeEach, describe, it } = exports.lab = Lab.script();
-//const { init } = require('../lib/server');
 
-const Chelate = require('../lib/chelates/chelate.js');
-const Consts = require('../lib/constants/consts.js');
+const { expect } = require('@hapi/code');
+
+// eslint-disable-next-line no-multi-assign
+const { describe, it } = exports.lab = Lab.script();
+
+// const { init } = require('../lib/server');
+
+const Chelate = require('../lib/chelates/chelate');
+const Consts = require('../lib/constants/consts');
 
 /* New
 PK SK TK must have all
@@ -16,8 +18,6 @@ GUID GUID GUID must convert to PK SK TK
 * * * must convert to PK SK TK
 
 * is a calculated GUID
-
-
 
 PK + SK must be unique
 
@@ -80,38 +80,42 @@ y      ATT   CONST GUID  form  ok
 */
 describe('Chelate', () => {
   // Initialize
+  /*
+  const keyMapUser = {
+    pk: { att: 'username' },
+    sk: { const: 'USER' },
+    tk: { guid: '*' },
+  };
+  */
 
-  let key_map_user = {
-    pk:{att: "username"},
-    sk:{const: "USER"},
-    tk:{guid: "*"}        // * is flag to calculate guid
+  const attAttAtt = {
+    pk: { att: 'username' },
+    sk: { att: 'displayname' },
+    tk: { att: 'password' },
   };
 
-  let att_att_att = {
-    pk:{att: "username"},
-    sk:{att: "displayname"},
-    tk:{att: "password"}
+  const constConstConst = {
+    pk: { const: 'USER1' },
+    sk: { const: 'USER2' },
+    tk: { const: 'USER3' },
   };
-  let const_const_const = {
-    pk:{const: "USER1"},
-    sk:{const: "USER2"},
-    tk:{const: "USER3"}
+
+  const guidGuidGuid = {
+    pk: { guid: '520a5bd9-e669-41d4-b917-81212bc184a3' },
+    sk: { guid: '620a5bd9-e669-41d4-b917-81212bc184a3' },
+    tk: { guid: '720a5bd9-e669-41d4-b917-81212bc184a3' },
   };
-  let guid_guid_guid = {
-    pk:{guid: "520a5bd9-e669-41d4-b917-81212bc184a3"},
-    sk:{guid: "620a5bd9-e669-41d4-b917-81212bc184a3"},
-    tk:{guid: "720a5bd9-e669-41d4-b917-81212bc184a3"}
+  /*
+  const starStarStar = { // aka guidGuidGuid
+    pk: { guid: '*' },
+    sk: { guid: '*' },
+    tk: { guid: '*' },
   };
-  let star_star_star = { // aka guid_guid_guid
-    pk:{guid: "*"},
-    sk:{guid: "*"},
-    tk:{guid: "*"}
-  };
+  */
   /*
   it('New Chelate() empty', () => {
     let chelateObj = new Chelate();
     expect(chelateObj).to.exist();
-    
     expect(chelateObj).toBeDefined();
     expect(chelateObj.pk).not.toBeDefined();
     expect(chelateObj.sk).not.toBeDefined();
@@ -120,17 +124,16 @@ describe('Chelate', () => {
     expect(chelateObj.active).not.toBeDefined();
     expect(chelateObj.created).not.toBeDefined();
     expect(chelateObj.updated).not.toBeDefined();
-    
-  })*/
+  }) */
 
   it('New Chelate({ATT ATT ATT} and form)', () => {
-   let form = {
-     "username":"abc@xyz.com",
-     "displayname":"abc",
-     "password":"a1A!aaaa"
+    const form = {
+      username: 'abc@xyz.com',
+      displayname: 'abc',
+      password: 'a1A!aaaa',
     };
 
-    let chelate = new Chelate(att_att_att, form);
+    const chelate = new Chelate(attAttAtt, form);
 
     expect(chelate).to.exist();
     expect(chelate.pk).to.equal('username#abc@xyz.com');
@@ -144,24 +147,23 @@ describe('Chelate', () => {
     expect(chelate.active).to.equal(true);
     expect(chelate.created).to.exist();
     expect(chelate.updated).to.exist();
-    
+
     expect(chelate.toJson().form.username).to.equal('abc@xyz.com');
     expect(chelate.toJson().form.displayname).to.equal('abc');
     expect(chelate.toJson().form.password).to.equal('a1A!aaaa');
     expect(chelate.toJson().active).to.equal(true);
     expect(chelate.toJson().created).to.exist();
     expect(chelate.toJson().updated).to.exist();
-    
-  })
+  });
 
   it('New Chelate({CONST CONST CONST} and form)', () => {
-   let form = {
-     "username":"abc@xyz.com",
-     "displayname":"abc",
-     "password":"a1A!aaaa"
+    const form = {
+      username: 'abc@xyz.com',
+      displayname: 'abc',
+      password: 'a1A!aaaa',
     };
 
-    let chelate = new Chelate(const_const_const, form);
+    const chelate = new Chelate(constConstConst, form);
 
     expect(chelate).to.exist();
 
@@ -180,16 +182,16 @@ describe('Chelate', () => {
     expect(chelate.toJson().active).to.equal(true);
     expect(chelate.toJson().created).to.exist();
     expect(chelate.toJson().updated).to.exist();
+  });
 
-  })
   it('New Chelate({GUID GUID GUID} and form)', () => {
-   let form = {
-     "username":"abc@xyz.com",
-     "displayname":"abc",
-     "password":"a1A!aaaa"
+    const form = {
+      username: 'abc@xyz.com',
+      displayname: 'abc',
+      password: 'a1A!aaaa',
     };
 
-    let chelate = new Chelate(guid_guid_guid, form);
+    const chelate = new Chelate(guidGuidGuid, form);
 
     expect(chelate).to.exist();
 
@@ -208,28 +210,27 @@ describe('Chelate', () => {
     expect(chelate.toJson().active).to.equal(true);
     expect(chelate.toJson().created).to.exist();
     expect(chelate.toJson().updated).to.exist();
-
-  })
+  });
 
   it('New Chelate({* * *} and form)', () => {
-   let form = {
-     "username":"abc@xyz.com",
-     "displayname":"abc",
-     "password":"a1A!aaaa"
+    const form = {
+      username: 'abc@xyz.com',
+      displayname: 'abc',
+      password: 'a1A!aaaa',
     };
 
-    let chelate = new Chelate(guid_guid_guid, form);
+    const chelate = new Chelate(guidGuidGuid, form);
 
     expect(chelate).exist();
 
-    //expect(chelate.pk).to.match(new RegExp(Consts.guidPlusPattern()));
-    //expect(chelate.sk).to.match(new RegExp(Consts.guidPlusPattern()));
-    //expect(chelate.tk).to.match(new RegExp(Consts.guidPlusPattern()));
-    
+    // expect(chelate.pk).to.match(new RegExp(Consts.guidPlusPattern()));
+    // expect(chelate.sk).to.match(new RegExp(Consts.guidPlusPattern()));
+    // expect(chelate.tk).to.match(new RegExp(Consts.guidPlusPattern()));
+
     expect(chelate.pk).to.match(Consts.guidPlusPattern());
     expect(chelate.sk).to.match(Consts.guidPlusPattern());
     expect(chelate.tk).to.match(Consts.guidPlusPattern());
-    
+
     expect(chelate.form.username).to.equal('abc@xyz.com');
     expect(chelate.form.displayname).to.equal('abc');
     expect(chelate.form.password).to.equal('a1A!aaaa');
@@ -242,11 +243,10 @@ describe('Chelate', () => {
     expect(chelate.toJson().active).to.equal(true);
     expect(chelate.toJson().created).exist();
     expect(chelate.toJson().updated).exist();
+  });
 
-  })
-
-/*
-removed the .update(form) method
+  /*
+  removed the .update(form) method
     it('update(form) Chelate(whatever and form).update(form)', () => {
      let form = {
        "username":"abc@xyz.com",
@@ -258,7 +258,7 @@ removed the .update(form) method
         "displayname":"ABC",
         "password":"A1a!AAAA"
        };
-      let chelate = new Chelate(att_att_att, form).update(form1);
+      let chelate = new Chelate(attAttAtt, form).update(form1);
 
       expect(chelate).toBeDefined();
       expect(chelate.pk).to.equal("username#abc@xyz.com");
@@ -269,22 +269,19 @@ removed the .update(form) method
       expect(chelate.form.password).to.equal("A1a!AAAA");
 
     })
-*/
-it('toJson() Chelate(whatever and form).toJson()', () => {
-     let form = {
-       "username":"abc@xyz.com",
-       "displayname":"abc",
-       "password":"a1A!aaaa"
-      };
+  */
+  it('toJson() Chelate(whatever and form).toJson()', () => {
+    const form = {
+      username: 'abc@xyz.com',
+      displayname: 'abc',
+      password: 'a1A!aaaa',
+    };
 
-      let jsonObj = new Chelate(att_att_att, form).toJson();
+    const jsonObj = new Chelate(attAttAtt, form).toJson();
 
-      expect(typeof(jsonObj)).to.equal('object');
+    expect(typeof jsonObj).to.equal('object');
+  });
 
-    })
-
-
-  ////////////////////////////////////////////////////
   /*
   it('New Chelate(key_map_user, chelate)', () => {
    let form = {
@@ -321,9 +318,9 @@ it('toJson() Chelate(whatever and form).toJson()', () => {
      "password":"a1A!aaaa"
     };
     let key_map = {
-      pk:{att: "username"},
-      sk:{const: "USER"},
-      tk:{guid: "*"}        // * is flag to calculate guid
+      pk: {att: "username"},
+      sk: {const: "USER"},
+      tk: {guid: "*"}        // * is flag to calculate guid
     };
     let chelate = new Chelate(att_const_guid, form);
     //console.log('chelate', chelate);
@@ -338,7 +335,6 @@ it('toJson() Chelate(whatever and form).toJson()', () => {
 
   })
 
-
   it('Chelate.assign(form) ', () => {
    let form = {
      "username":"abc@xyz.com",
@@ -347,7 +343,7 @@ it('toJson() Chelate(whatever and form).toJson()', () => {
     };
 
     // make an object
-    let chelate_original = new Chelate(att_att_att, form);
+    let chelate_original = new Chelate(attAttAtt, form);
     // fill an empty object
     let chelate = new Chelate().assign(chelate_original);
 
@@ -377,7 +373,7 @@ it('toJson() Chelate(whatever and form).toJson()', () => {
      "password":"a1A!aaaa"
     };
 
-    let chelate = new Chelate(att_att_att, form);
+    let chelate = new Chelate(attAttAtt, form);
     expect(chelate).toBeDefined();
     expect(chelate.toString()).toBeDefined();
   })
@@ -400,8 +396,6 @@ it('toJson() Chelate(whatever and form).toJson()', () => {
     expect(chelate.form.password).to.equal('a1A!aaaa');
 
   })
-
-
 
   it('Chelate({ATT CONST GUID} and chelate).update(form) ', () => {
 
@@ -439,5 +433,4 @@ it('toJson() Chelate(whatever and form).toJson()', () => {
     expect(chelate.updated).toBeDefined();
   })
 */
-
 });
