@@ -4,21 +4,11 @@ Strategy: Create an application that communicates with a database via a Restful 
 Strategy: Use GitHub Actions to deploy app and api to Heroku.
 Strategy: JWT to control access to application and api.
 
-1. Done: ~~Nuxtjs app client configuration (lb-a)~~
-1. Done: ~~lb-a docker-compose setup~~
-1. Done: ~~lb-a heroku setup~~
-1. Done: ~~lb-a Github Actions setup (GitHub to Heroku)~~
-1. Api integration, request POST, GET, UPDATE, DELETE
-
-1. Done: ~~Hapi api configuration (lyb-api)~~
-1. Done: ~~lyb-api docker-compose setup~~
-1. Done: ~~lb-a heroku setup~~
-1. Done: ~~lyb-api Github Actions setup (GitHub to Heroku)~~
-1. Database integration, handle POST, GET, PUT, and DELETE requests
-
 1. Done:  ~~communications between Client and API~~
-1. Database (postgres) docker setup
-1. Database (postress) herok setup
+1. Done: Database (postgres) docker setup
+1. Done: Database (postress) herok setup
+1. Database implement a review table
+1. Database implement a staging table
 
 Start rewrite of this readme
 
@@ -157,6 +147,8 @@ open -a safari https://lyb-api.herokuapp.com/documentation
   ```
   * __Cause__: Indcates a bad password/secret. This often happens when the JWT_SECRET has changed.  __Solution__: Generate a new token using the updated secret.
 2. Route testing isn't working. Cannot connect to database. 
+  * route.signin.post.test.js
+  * route.signup.post.test.js
 
 ## History
 
@@ -167,5 +159,6 @@ open -a safari https://lyb-api.herokuapp.com/documentation
 1. disable Joi in lib/server.js
 1. enable detection of heroku production environment
 1. redirect api home to swagger/documentation
-
+1. need, Database implement a review table
+1. need, Database implement a staging table
 
