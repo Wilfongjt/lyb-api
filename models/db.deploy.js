@@ -1,9 +1,10 @@
 'use strict'
-console.log('HI');
+console.log('HI HI');
 // const process = require('process');
 
 const SqlRunner = require('../lib/runner/runner_sql.js');
 const CreateTableProduction = require('../lib/db/table_create_production.js');
+/*
 const CreateTableReview = require('../lib/db/table_create_review.js');
 const CreateTableStaging = require('../lib/db/table_create_staging.js');
 const CreateFunctionUrlDecode = require('../lib/db/function_create_url_decode.js');
@@ -13,7 +14,7 @@ const CreateFunctionSign = require('../lib/db/function_create_sign.js');
 const CreateFunctionVerify = require('../lib/db/function_create_verify.js');
 const CreateFunctionGetJwtSecret = require('../lib/db/function_create_get_jwt_secret.js');
 const CreateFunctionGetJwtClaims = require('../lib/db/function_create_get_jwt_claims.js');
-
+*/
 // run all scripts
 // Creates have an order
 // Add new or alters to end
