@@ -20,6 +20,11 @@ const CreateFunctionGetJwtClaims = require('../lib/db/function_create_get_jwt_cl
 // Make new class for alters
 const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
        .add(new CreateTableProduction())
+       .run()
+       ;
+/*
+const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
+       .add(new CreateTableProduction())
        .add(new CreateTableReview())
        .add(new CreateTableStaging())
        .add(new CreateFunctionUrlDecode())
@@ -32,6 +37,7 @@ const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
 
        .run()
        ;
+*/
 
 // connector.end();
 
