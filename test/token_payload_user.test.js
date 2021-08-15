@@ -24,7 +24,7 @@ describe('User Token Payload', () => {
   it('UserTokenPayload Payload', () => {
     const userTokenPayload = new UserTokenPayload(pl.user, pl.key);
     // console.log('guestTokenPayload',guestTokenPayload.token_payload);
-    expect(userTokenPayload).to.exist();
+    // expect(userTokenPayload).to.exist();
     expect(userTokenPayload.token_payload.user).to.equal(pl.user);
     expect(userTokenPayload.token_payload.key).to.equal(pl.key);
   });

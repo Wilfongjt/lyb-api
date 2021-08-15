@@ -1,9 +1,10 @@
 {
-  "name": "lb-hapi",
+  "name": "lyb-api",
   "version": "1.0.0",
   "description": "simple",
   "main": "server.js",
   "scripts": {
+    "db-deploy": "node --trace-warnings models/db.deploy.js",
     "dev2": "nodemon --trace-warnings server.js",
     "dev": "nodemon ./server.js",
     "dev3": "node ./server.js",
