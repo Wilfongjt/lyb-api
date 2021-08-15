@@ -18,5 +18,8 @@
           "postdeploy": "npm run db-deploy"
         }
       }
+    },
+    "scripts": {
+      "postdeploy": "npm run db-deploy"
     }
 }
