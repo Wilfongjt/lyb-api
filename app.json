@@ -1,0 +1,17 @@
+{
+    "name": "lyb-api",
+    "description": "Lyb-Api is a single table api.",
+    "addons": [
+        {
+          "plan": "heroku-postgresql:hobby-dev"
+        }
+    ],
+    "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        }
+    ],
+    "scripts": {
+        "postdeploy": "npm run db-deploy"
+    }
+}

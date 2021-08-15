@@ -1,3 +1,6 @@
+# Details
+Details is a master list of useful project information.
+
 # Index
 
 > [Architecture](#architecture)
@@ -8,9 +11,23 @@
 
 > [Processes](#processes )
 
+# Addons
+
+* # airbreak
+    [airbrake](https://airbrake.io) is application monitoring
+
+* # heroku-postgresql
+    [heroku-postgresql](https://elements.heroku.com/addons/heroku-postgresql) is a database
+
+* # sendgrid
+    [sendgrid](https://sendgrid.com) is an email api
 
 # Architecture
+```
+[App] <---> [API] <---> [Database]
+```
 
+* ## Application (App)
 * ## Application Programming Interface (API)
 * ## Database (DB) 
 
@@ -24,6 +41,7 @@
 * ## NODE_ENV
 * ## NPM_CONFIG_PRODUCTION
 * ## PORT 
+* ## postdeploy
 * ## POSTGRES_DB
 * ## POSTGRES_USER
 * ## POSTGRES_PASSWORD
