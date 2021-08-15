@@ -1,6 +1,10 @@
+/* 
+
+* not a good idea to run test against db during deploy
+* database may not have initated at this point... heroku review apps
+
 'use strict';
 
-/* eslint-disable no-multi-assign */
 
 const Lab = require('@hapi/lab');
 
@@ -36,3 +40,4 @@ describe('CreateTable construct', () => {
   });
 
 });
+*/
