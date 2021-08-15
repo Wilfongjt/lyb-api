@@ -19,6 +19,11 @@ const CreateFunctionGetJwtClaims = require('../lib/db/function_create_get_jwt_cl
 // Creates have an order
 // Add new or alters to end
 // Make new class for alters
+
+if ('HEROKU_POSTGRESQL_YELLOW_URL' in process.env) {
+  console.log('Has HEROKU_POSTGRESQL_YELLOW_URL');
+}
+
 const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
        .add(new CreateTableProduction())
        .run()
