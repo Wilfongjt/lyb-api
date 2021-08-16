@@ -27,7 +27,9 @@ if ('HEROKU_POSTGRESQL_YELLOW_URL' in process.env) {
 if ('HEROKU_POSTGRESQL_ROSE_URL' in process.env) {
        console.log('Has HEROKU_POSTGRESQL_YELLOW_URL');
      }
+
 console.log('env', process.env);     
+
 const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
        .add(new CreateTableProduction())
        .run()
