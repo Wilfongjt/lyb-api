@@ -37,6 +37,7 @@ const sqlRunner = new SqlRunner(DB_URL)
        .add(new CreateTableProduction())
        .run()
        ;
+       
 /*
 const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
        .add(new CreateTableProduction())
