@@ -1,6 +1,7 @@
 'use strict';
 // const pg = require('pg');
-const Step = require('../runner/step');
+
+const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionAlgorithmSign extends Step {
   constructor() {
     super();
