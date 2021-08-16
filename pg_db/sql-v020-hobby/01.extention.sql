@@ -15,7 +15,7 @@ select :postgres_api_password as postgres_api_password;
 select :api_scope as api_scope;
 
 ----------------
--- Extentions
+-- Extensions
 -- works in Hobby 
 --------------
 

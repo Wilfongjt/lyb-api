@@ -29,7 +29,7 @@ select :api_scope as api_scope;
 \c pg_db
 
 ----------------
--- Extentions
+-- Extensions
 -- Dont work in Hobby 
 --------------
    

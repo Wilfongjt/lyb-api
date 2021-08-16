@@ -1,11 +1,21 @@
 'use strict'
 /* eslint-disable no-undef */
 
-console.log('HI HI HI');
+console.log('db.deploy');
 // const process = require('process');
 const Consts = require('../lib/constants/consts');
 const SqlRunner = require('../lib/runner/runner_sql.js');
-const CreateTableProduction = require('./db/table_create_production.js');
+
+const CreateExtension = require('./db/extension_create.js');
+const CreateSchema = require('./db/schema_create.js');
+
+// const CreateSchemaBase = require('./db/schema_create_base.js');
+// const CreateSchemaApi = require('./db/schema_create_api.js');
+// const CreateSchemaBase = require('./db/schema_create_base.js');
+const CreateTable = require('./db/table_create.js');
+
+// const CreateTableProduction = require('./db/table_create_production.js');
+
 /*
 const CreateTableReview = require('.//db/table_create_review.js');
 const CreateTableStaging = require('./db/table_create_staging.js');
@@ -21,7 +31,12 @@ const CreateFunctionGetJwtClaims = require('./db/function_create_get_jwt_claims.
 // Creates have an order
 // Add new or alters to end
 // Make new class for alters
+// [* set the verson ]
 
+const baseVersion='0_0_1';
+const apiVersion='0_0_1';
+
+// CREATE SCHEMA if not exists api_0_0_1;';
 // [* switch to heroku color url when available]
 let DB_URL=process.env.DATABASE_URL;
 const regex = new RegExp(Consts.databaseUrlPattern());
@@ -34,8 +49,13 @@ for (let env in process.env) {
 
 console.log('DB_URL', DB_URL);
 // [* Build database]
+// [* support multiple versions]
 const sqlRunner = new SqlRunner(DB_URL)
-       .add(new CreateTableProduction())
+       .add(new CreateExtension('pgcrypto','public'))
+       .add(new CreateExtension('"uuid-ossp"','public'))
+       .add(new CreateSchema('base', baseVersion))
+       .add(new CreateSchema('api', apiVersion))
+       .add(new CreateTable('base',baseVersion))
        .run()
        ;
        
