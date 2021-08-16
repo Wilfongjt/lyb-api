@@ -8,7 +8,7 @@ const { expect } = require('@hapi/code');
 const { describe, it } = exports.lab = Lab.script();
 
 // const Chelate = require('../lib/chelates/chelate.js');
-// const Consts = require('../lib/constants/consts.js');
+// const Co nsts = require('../lib/constants/co nsts.js');
 const UserTokenPayload = require('../lib/auth/token_payload_user');
 
 describe('User Token Payload', () => {
