@@ -26,16 +26,18 @@ let DB_URL=process.env.DATABASE_URL;
 const regex = new RegExp(Consts.databaseUrlPattern());
 for (let env in process.env) {
   if (regex.test(env)) {
+    console.log('setting ', env);
     DB_URL=process.env[env];
   }
 }
 
-// console.log('DB_URL', DB_URL);
-
+console.log('DB_URL', DB_URL);
+// [* Build database]
 const sqlRunner = new SqlRunner(DB_URL)
        .add(new CreateTableProduction())
        .run()
        ;
+       
 /*
 const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
        .add(new CreateTableProduction())
