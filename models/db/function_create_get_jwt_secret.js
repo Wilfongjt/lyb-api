@@ -1,6 +1,6 @@
 'use strict';
 // const pg = require('pg');
-const Step = require('../runner/step');
+const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionGetJwtSecret extends Step {
   constructor() {
     super();

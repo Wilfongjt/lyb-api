@@ -1,20 +1,21 @@
 'use strict'
 /* eslint-disable no-undef */
-console.log('HI HI');
+
+console.log('HI HI HI');
 // const process = require('process');
 const Consts = require('../lib/constants/consts');
 const SqlRunner = require('../lib/runner/runner_sql.js');
-const CreateTableProduction = require('../lib/db/table_create_production.js');
+const CreateTableProduction = require('./db/table_create_production.js');
 /*
-const CreateTableReview = require('../lib/db/table_create_review.js');
-const CreateTableStaging = require('../lib/db/table_create_staging.js');
-const CreateFunctionUrlDecode = require('../lib/db/function_create_url_decode.js');
-const CreateFunctionUrlEncode = require('../lib/db/function_create_url_encode.js');
-const CreateFunctionAlgorithmSign = require('../lib/db/function_create_algorithm_sign.js');
-const CreateFunctionSign = require('../lib/db/function_create_sign.js');
-const CreateFunctionVerify = require('../lib/db/function_create_verify.js');
-const CreateFunctionGetJwtSecret = require('../lib/db/function_create_get_jwt_secret.js');
-const CreateFunctionGetJwtClaims = require('../lib/db/function_create_get_jwt_claims.js');
+const CreateTableReview = require('.//db/table_create_review.js');
+const CreateTableStaging = require('./db/table_create_staging.js');
+const CreateFunctionUrlDecode = require('./db/function_create_url_decode.js');
+const CreateFunctionUrlEncode = require('./db/function_create_url_encode.js');
+const CreateFunctionAlgorithmSign = require('./db/function_create_algorithm_sign.js');
+const CreateFunctionSign = require('./db/function_create_sign.js');
+const CreateFunctionVerify = require('./db/function_create_verify.js');
+const CreateFunctionGetJwtSecret = require('./db/function_create_get_jwt_secret.js');
+const CreateFunctionGetJwtClaims = require('./db/function_create_get_jwt_claims.js');
 */
 // run all scripts
 // Creates have an order
