@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
   const path = require('path');
   dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 }
-import Consts from '../../lib/constants/consts.js';
+import Co nsts from '../../lib/constants/co nsts.js';
 import DataTypes from '../../lib/constants/data_types.js';
 */
 const ChelateUser = require('../lib/chelates/chelate_user');

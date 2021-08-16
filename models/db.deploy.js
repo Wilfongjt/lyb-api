@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 console.log('HI HI');
 // const process = require('process');
-
+const Consts = require('../lib/constants/consts');
 const SqlRunner = require('../lib/runner/runner_sql.js');
 const CreateTableProduction = require('../lib/db/table_create_production.js');
 /*
@@ -21,16 +21,18 @@ const CreateFunctionGetJwtClaims = require('../lib/db/function_create_get_jwt_cl
 // Add new or alters to end
 // Make new class for alters
 
-if ('HEROKU_POSTGRESQL_YELLOW_URL' in process.env) {
-  console.log('Has HEROKU_POSTGRESQL_YELLOW_URL');
+// [* switch to heroku color url when available]
+let DB_URL=process.env.DATABASE_URL;
+const regex = new RegExp(Consts.databaseUrlPattern());
+for (let env in process.env) {
+  if (regex.test(env)) {
+    DB_URL=process.env[env];
+  }
 }
-if ('HEROKU_POSTGRESQL_ROSE_URL' in process.env) {
-       console.log('Has HEROKU_POSTGRESQL_YELLOW_URL');
-     }
 
-console.log('env', process.env);     
+// console.log('DB_URL', DB_URL);
 
-const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
+const sqlRunner = new SqlRunner(DB_URL)
        .add(new CreateTableProduction())
        .run()
        ;

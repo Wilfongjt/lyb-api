@@ -9,7 +9,7 @@ const { expect } = require('@hapi/code');
 
 // eslint-disable-next-line no-multi-assign
 const { before, describe, it } = exports.lab = Lab.script();
-// const Consts = require('../lib/constants/consts.js');
+// const Co nsts = require('../lib/constants/co nsts.js');
 // const ChelateHelper = require('../lib/chelates/chelate_helper.js');
 
 describe('Environment', () => {
