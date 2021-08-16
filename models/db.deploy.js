@@ -1,4 +1,5 @@
 'use strict'
+/* eslint-disable no-undef */
 console.log('HI HI');
 // const process = require('process');
 
@@ -23,7 +24,10 @@ const CreateFunctionGetJwtClaims = require('../lib/db/function_create_get_jwt_cl
 if ('HEROKU_POSTGRESQL_YELLOW_URL' in process.env) {
   console.log('Has HEROKU_POSTGRESQL_YELLOW_URL');
 }
-
+if ('HEROKU_POSTGRESQL_ROSE_URL' in process.env) {
+       console.log('Has HEROKU_POSTGRESQL_YELLOW_URL');
+     }
+console.log('env', process.env);     
 const sqlRunner = new SqlRunner(process.env.DATABASE_URL)
        .add(new CreateTableProduction())
        .run()

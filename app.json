@@ -11,6 +11,8 @@
           "url": "heroku/nodejs"
         }
     ],
+    "env": {
+    },
     "environments": {
       "review": {
         "addons": ["heroku-postgresql:hobby-dev"],
@@ -18,6 +20,8 @@
           "postdeploy": "npm run db-deploy"
         }
       }
+    },
+    "formation": {
     },
     "scripts": {
       "postdeploy": "npm run db-deploy"
