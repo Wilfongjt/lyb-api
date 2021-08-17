@@ -63,6 +63,8 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateSchema('base', baseVersion))
        .add(new CreateSchema('api', apiVersion))
        .add(new CreateTable('base',baseVersion))
+       .add(new CreateFunctionUrlDecode('base', baseVersion))
+       .add(new CreateFunctionUrlEncode('base', baseVersion))
        .add(new CreateFunctionAlgorithmSign('base', baseVersion))
        .add(new CreateFunctionChangedKey('base', baseVersion))
        .add(new CreateFunctionChelate('base', baseVersion))
@@ -73,8 +75,7 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateFunctionQuery('base', baseVersion))
        .add(new CreateFunctionSign('base', baseVersion))
        .add(new CreateFunctionUpdate('base', baseVersion))
-       .add(new CreateFunctionUrlDecode('base', baseVersion))
-       .add(new CreateFunctionUrlEncode('base', baseVersion))
+     
        .add(new CreateFunctionValidateChelate('base', baseVersion))
        .add(new CreateFunctionValidateCredentials('base', baseVersion))
        .add(new CreateFunctionValidateCriteria('base', baseVersion))
@@ -98,8 +99,8 @@ if (process.env.NODE_ENV != 'production') {
 
   }  
 }
-console.log('RRRRRR', runner.run())
 
+runner.run();
 
 
 
