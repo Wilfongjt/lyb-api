@@ -159,6 +159,10 @@ open -a safari https://lyb-api.herokuapp.com/documentation
 1. disable Joi in lib/server.js
 1. enable detection of heroku production environment
 1. redirect api home to swagger/documentation
-1. need, Database implement a review table
-1. need, Database implement a staging table
+1. create database model in node
+  1. create node classes to encapcilate: 
+    * db, 
+    * extensions, 
+    * table, 
+    * functions
 

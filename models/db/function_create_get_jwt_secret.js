@@ -2,11 +2,13 @@
 // const pg = require('pg');
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionGetJwtSecret extends Step {
-  constructor() {
-    super();
+  constructor(baseName, baseVersion) {
+    super(baseName, baseVersion);
     // this.kind = kind;
-    this.name = `get_jwt_secret`;
-    this.sql = `CREATE OR REPLACE FUNCTION base_0_0_1.get_jwt_secret() RETURNS TEXT
+    this.name = 'get_jwt_secret';
+    this.name = `${this.kind}_${this.version}.${this.name}`;
+
+    this.sql = `CREATE OR REPLACE FUNCTION ${this.name}() RETURNS TEXT
     AS $$
     declare rc TEXT;
     BEGIN
