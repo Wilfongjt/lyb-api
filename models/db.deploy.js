@@ -54,7 +54,7 @@ for (let env in process.env) {
   }
 }
 
-console.log('DB_URL', DB_URL);
+// console.log('DB_URL', DB_URL);
 // [* Build database]
 // [* support multiple versions]
 const runner = new SqlRunner(DB_URL)
