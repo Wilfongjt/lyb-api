@@ -2,11 +2,14 @@
 // const pg = require('pg');
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionUrlDecode extends Step {
-  constructor() {
-    super();
+  constructor(baseName, baseVersion) {
+    super(baseName, baseVersion);
     // this.kind = kind;
-    this.name = `url_decode`;
-    this.sql = `CREATE OR REPLACE FUNCTION base_0_0_1.url_decode(data text) RETURNS bytea LANGUAGE sql AS $$
+    
+    this.name = 'url_decode';
+    this.name = `${this.kind}_${this.version}.${this.name}`;
+
+    this.sql = `CREATE OR REPLACE FUNCTION ${this.name}(data text) RETURNS bytea LANGUAGE sql AS $$
     WITH t AS (SELECT pg_catalog.translate(data, '-_', '+/') AS trans),
          rem AS (SELECT length(t.trans) % 4 AS remainder FROM t) -- compute padding size
         SELECT pg_catalog.decode(

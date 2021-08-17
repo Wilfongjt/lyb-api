@@ -2,11 +2,12 @@
 // const pg = require('pg');
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionGetJwtClaims extends Step {
-  constructor() {
-    super();
+  constructor(baseName, baseVersion) {
+    super(baseName, baseVersion);
     // this.kind = kind;
-    this.name = `get_jwt_claims`;
-    this.sql = `CREATE OR REPLACE FUNCTION base_0_0_1.get_jwt_claims(user_ TEXT, scope_ TEXT, key_ TEXT) RETURNS JSONB
+    this.name = 'get_jwt_claims';
+    this.name = `${this.kind}_${this.version}.${this.name}`;
+    this.sql = `CREATE OR REPLACE FUNCTION ${this.name}(user_ TEXT, scope_ TEXT, key_ TEXT) RETURNS JSONB
     AS $$
     BEGIN
         -- POSTGRES_JWT_CLAIMS

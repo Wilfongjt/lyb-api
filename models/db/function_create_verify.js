@@ -2,16 +2,17 @@
 // const pg = require('pg');
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionSign extends Step {
-  constructor() {
-    super();
+  constructor(baseName, baseVersion) {
+    super(baseName, baseVersion);
     // this.kind = kind;
-    this.name = `verify`;
-    this.sql = `CREATE OR REPLACE FUNCTION base_0_0_1.verify(token text, secret text, algorithm text DEFAULT 'HS256')
+    this.name = 'verify';
+    this.name = `${this.kind}_${this.version}.${this.name}`;
+    this.sql = `CREATE OR REPLACE FUNCTION ${this.name}(token text, secret text, algorithm text DEFAULT 'HS256')
     RETURNS table(header json, payload json, valid boolean) LANGUAGE sql AS $$
       SELECT
-        convert_from(base_0_0_1.url_decode(r[1]), 'utf8')::json AS header,
-        convert_from(base_0_0_1.url_decode(r[2]), 'utf8')::json AS payload,
-        r[3] = base_0_0_1.algorithm_sign(r[1] || '.' || r[2], secret, algorithm) AS valid
+        convert_from(${this.kind}_${this.version}.url_decode(r[1]), 'utf8')::json AS header,
+        convert_from(${this.kind}_${this.version}.url_decode(r[2]), 'utf8')::json AS payload,
+        r[3] = ${this.kind}_${this.version}.algorithm_sign(r[1] || '.' || r[2], secret, algorithm) AS valid
       FROM regexp_split_to_array(token, '\\.') r;
     $$;
     `;
