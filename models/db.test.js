@@ -31,7 +31,10 @@ for (let env in process.env) {
     DB_URL=process.env[env];
   }
 }
-
+console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
+// console.log('DATABASE_URL', process.env.DATABASE_URL);
+// console.log('DB_URL', DB_URL);
+// console.log('testable', testable);
 // console.log('DB_URL', DB_URL);
 // [* Build database]
 // [* support multiple versions]

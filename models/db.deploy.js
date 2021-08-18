@@ -56,8 +56,21 @@ for (let env in process.env) {
     DB_URL=process.env[env];
   }
 }
-
+let testable = true;
+if (process.env.DATABASE_URL === DB_URL) {
+  // [* No testing in staging]
+  // [* No testing in production]
+  // [* Test in review]
+  // [* Test in local development]
+  if (process.env.NODE_ENV === 'production') {
+    testable = false;
+  }
+}
+console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
+// console.log('DATABASE_URL', process.env.DATABASE_URL);
 // console.log('DB_URL', DB_URL);
+console.log('testable', testable);
+
 // [* Build database]
 // [* support multiple versions]
 const runner = new SqlRunner(DB_URL)
@@ -95,7 +108,15 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateFunctionSignin('api', apiVersion))
        ;
 // [* Tests]
-if (process.env.NODE_ENV != 'production') {
+if (testable) {
+
+    runner
+      .load(new BaseTests(baseVersion))
+      .load(new ApiTests(apiVersion, baseVersion));
+
+}
+/*
+if (process.env.NODE_ENV !== 'production') {
   // [Run tests in non-production environments]
   if (!('NPM_CONFIG_PRODUCTION' in process.env)) {
     // [* add db base tests]
@@ -104,7 +125,7 @@ if (process.env.NODE_ENV != 'production') {
       .load(new ApiTests(apiVersion, baseVersion));
   }  
 }
-
+*/
 runner.run();
 
 
