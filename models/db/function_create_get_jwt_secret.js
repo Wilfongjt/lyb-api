@@ -12,21 +12,19 @@ module.exports = class CreateFunctionGetJwtSecret extends Step {
     AS $$
     declare rc TEXT;
     BEGIN
-  
-        if current_setting('app.settings.jwt_secret',true) is not NULL then
-           -- [* > Hobby or Docker]
-           rc := current_setting('app.settings.jwt_secret',true) ;
-        elsif length(current_setting('syslog_ident')) >= 32 then  
-           -- [* Hobby]
-           rc := current_setting('syslog_ident');
-        elsif length(current_setting('syslog_ident')) < 32 then  
-           -- [* Hobby]
-           rc := format('%s%s%s%s%s',current_setting('app.settings.jwt_secret'),current_setting('app.settings.jwt_secret'),current_setting('app.settings.jwt_secret'),current_setting('app.settings.jwt_secret'),current_setting('app.settings.jwt_secret'));                   
+ 
+        -- [* use app.settings.jwt_secret when available]
+        -- [* use syslog_ident when app.settings.jwt_secret not available]
+        rc := COALESCE(
+           current_setting('app.settings.jwt_secret', true), 
+           current_setting('syslog_ident') 
+           )::TEXT;
+        if length(rc) < 32 then
+           -- [* force secret to be longer than 32]
+           rc := format('%s%s%s%s%s',rc, rc, rc, rc, rc);
         end if;
-  
-        --RETURN coalese(current_setting('app.settings.jwt_secret',true), current_setting('syslog_ident'), '');
+
         RETURN rc;
-  
     END;  $$ LANGUAGE plpgsql;
     `;
     // console.log('CreateFunction', this.sql);

@@ -8,8 +8,10 @@ module.exports = class CreateFunctionSignup extends Step {
     // this.kind = kind;
     this.name = 'signup';
     this.name = `${this.kind}_${this.version}.${this.name}`;
-    this.sql = `
-    CREATE OR REPLACE FUNCTION ${this.name}(token TEXT,form JSON, key TEXT default '0')  RETURNS JSONB AS $$
+    this.baseKind='base';
+    this.baseVersion=baseVersion;
+
+    this.sql = `CREATE OR REPLACE FUNCTION ${this.name}(token TEXT,form JSON, key TEXT default '0')  RETURNS JSONB AS $$
         Declare _form JSONB; Declare result JSONB; Declare chelate JSONB := '{}'::JSONB;Declare tmp TEXT;
             BEGIN
               -- [Function: Signup given guest_token TEXT, form JSON]
@@ -21,7 +23,7 @@ module.exports = class CreateFunctionSignup extends Step {
     
               -- [Validate Token]
     
-              result := ${this.kind}_${this.version}.validate_token(token, 'api_guest') ;
+              result := ${this.baseKind}_${this.baseVersion}.validate_token(token, 'api_guest') ;
     
               if result is NULL then
     
@@ -99,7 +101,7 @@ module.exports = class CreateFunctionSignup extends Step {
     
                       -- [Generate owner key when not provided]
     
-                      chelate := ${this.kind}_${this.version}.chelate('{"pk":"username","sk":"const#USER","tk":"*"}'::JSONB, _form); -- chelate with keys on insert
+                      chelate := ${this.baseKind}_${this.baseVersion}.chelate('{"pk":"username","sk":"const#USER","tk":"*"}'::JSONB, _form); -- chelate with keys on insert
     
                   else
     
@@ -113,7 +115,7 @@ module.exports = class CreateFunctionSignup extends Step {
     
                       -- [Overide owner when signup key provided]
     
-                      chelate := ${this.kind}_${this.version}.chelate(format('{"pk":"username","sk":"const#USER","tk":"%s"}', key)::JSONB, _form); -- chelate with keys on insert
+                      chelate := ${this.baseKind}_${this.baseVersion}.chelate(format('{"pk":"username","sk":"const#USER","tk":"%s"}', key)::JSONB, _form); -- chelate with keys on insert
     
                   end if;
     
@@ -127,9 +129,9 @@ module.exports = class CreateFunctionSignup extends Step {
     
               chelate := chelate || format('{"owner":"%s"}', chelate ->> 'tk')::JSONB;
     
-              result := ${this.kind}_${this.version}.insert(chelate, chelate ->> 'owner');
+              result := ${this.baseKind}_${this.baseVersion}.insert(chelate, chelate ->> 'owner');
     
-              -- result := ${this.kind}_${this.version}.insert(chelate ->> 'tk', chelate,chelate ->> 'owner');
+              -- result := ${this.baseKind}_${this.baseVersion}.insert(chelate ->> 'tk', chelate,chelate ->> 'owner');
               -- not available in hobby RESET ROLE;
     
               -- [Return {status,msg,insertion}]
