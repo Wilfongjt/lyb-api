@@ -6,16 +6,15 @@ module.exports = class CreateTableTest extends Step {
     super(kind, baseVersion);
     this.name = `${this.kind}_${this.version}.one`;
     this.sql = `BEGIN;
-    SELECT plan(3);
+
+    SELECT plan(2);
+    -- 1
     SELECT has_table('${this.kind}_${this.version}', 'one', 'Table exists');
+    -- 2
     SELECT hasnt_pk('${this.kind}_${this.version}', 'one', 'Primary key exists');
-    -- TEST: Test event_logger Insert
+
     SELECT * FROM finish();
     ROLLBACK;
     `;
-    
   }    
-  
-
-
 };

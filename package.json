@@ -7,6 +7,7 @@
     "db-deploy": "node --trace-warnings models/db.deploy.js",
     "dev": "nodemon ./server.js",
     "start": "node server.js",
+    "db-test": "node models/db.test.js",
     "test": "lab -l -v */*.test.js",
     "lint": "eslint '**/*.js?(x)'"
   },

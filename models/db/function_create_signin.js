@@ -5,7 +5,8 @@ const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionSignin extends Step {
   constructor(baseName, baseVersion) {
     super(baseName, baseVersion);
-    // this.kind = kind;
+    this.baseKind = 'base';
+    this.baseVersion = baseVersion;
     this.name = 'signin';
     this.name = `${this.kind}_${this.version}.${this.name}`;
     this.sql = `CREATE OR REPLACE FUNCTION ${this.name}(guest_token TEXT,credentials JSON) RETURNS JSONB
@@ -28,9 +29,9 @@ module.exports = class CreateFunctionSignin extends Step {
       -- set role api_ guest;
   
       -- [Validate Token]
-      _token = ${this.kind}_${this.version}.validate_token(guest_token, 'api_guest');
+      _token = ${this.baseKind}_${this.baseVersion}.validate_token(guest_token, 'api_guest');
   
-      --if not(${this.kind}_${this.version}.is_valid _token(guest_token, 'api_guest') ) then
+      --if not(${this.baseKind}_${this.baseVersion}.is_valid _token(guest_token, 'api_guest') ) then
       if _token is NULL then 
         -- [Fail 403 when token is invalid]
         --RESET ROLE; -- not hobby friendly 
@@ -42,7 +43,7 @@ module.exports = class CreateFunctionSignin extends Step {
       --set role api_ guest; -- api_authenticator allows this switch but doesnt dictate it
       -- [Validate Credentials]
   
-      _credentials := ${this.kind}_${this.version}.validate_credentials(credentials::JSONB);
+      _credentials := ${this.baseKind}_${this.baseVersion}.validate_credentials(credentials::JSONB);
   
       if _credentials is NULL then
         -- [Fail 400 when credentials are NULL or missing]
@@ -57,9 +58,9 @@ module.exports = class CreateFunctionSignin extends Step {
       BEGIN
         -- [Verify User Credentials]
         -- [Generate user token]
-            --           SELECT public.sign(row_to_json(r), ${this.kind}_${this.version}.get_jwt_secret(),) AS token into _user_token
+            --           SELECT public.sign(row_to_json(r), ${this.baseKind}_${this.baseVersion}.get_jwt_secret(),) AS token into _user_token
   
-            SELECT ${this.kind}_${this.version}.sign(row_to_json(r), ${this.kind}_${this.version}.get_jwt_secret()) AS token into _user_token
+            SELECT ${this.baseKind}_${this.baseVersion}.sign(row_to_json(r), ${this.baseKind}_${this.baseVersion}.get_jwt_secret()) AS token into _user_token
                  FROM (
                    SELECT
                      _token ->> 'aud' as aud,
@@ -69,7 +70,7 @@ module.exports = class CreateFunctionSignin extends Step {
                      _credentials ->> 'scope' as scope,
                      pk as jti,
                      tk as key
-                   from ${this.kind}_${this.version}.one
+                   from ${this.baseKind}_${this.baseVersion}.one
                    where
                        LOWER(pk) = LOWER(format('username#%s', _credentials ->> 'username'))
                        and sk = 'const#USER'

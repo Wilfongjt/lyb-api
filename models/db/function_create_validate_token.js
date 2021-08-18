@@ -8,8 +8,7 @@ module.exports = class CreateFunctionValidateToken extends Step {
     // this.kind = kind;
     this.name = 'validate_token';
     this.name = `${this.kind}_${this.version}.${this.name}`;
-    this.sql = `
-    CREATE OR REPLACE FUNCTION ${this.name}(_token TEXT, expected_scope TEXT) RETURNS JSONB
+    this.sql = `CREATE OR REPLACE FUNCTION ${this.name}(_token TEXT, expected_scope TEXT) RETURNS JSONB
       AS $$
         DECLARE valid_user JSONB;
         DECLARE tx TEXT;
@@ -34,10 +33,10 @@ module.exports = class CreateFunctionValidateToken extends Step {
     
         BEGIN
           -- Non-hobby 
-          valid_user := to_jsonb(${this.kind}_${this.version}.verify(replace(_token,'Bearer ',''),${this.kind}_${this.version}.get_jwt_secret(),'HS256' ))::JSONB;
-          -- Hobby code
-          --valid_user := _token ;-- '{"valid":true,"payload":"", "scope":"","user":"","key":""}'::JSONB;
-    
+          valid_user := to_jsonb(${this.kind}_${this.version}.verify(replace(_token,'Bearer ',''),
+                                 ${this.kind}_${this.version}.get_jwt_secret(),'HS256')
+                                )::JSONB;
+          
           if not((valid_user ->> 'valid')::BOOLEAN) then
             return NULL;
           end if;
@@ -55,16 +54,6 @@ module.exports = class CreateFunctionValidateToken extends Step {
           if not((valid_user ->> 'scope')::TEXT = expected_scope) then
             return NULL;
           end if;
-          
-          -- [Set user in session]
-          -- [Set scope in session]
-          -- [Set user key in session]
-          --Deprecated tx := set_config('request.jwt.claim. user', valid_user ->> 'user', true); -- If is_local is true, the new value will only apply for the current transaction.
-          --Deprecated tx := set_config('request.jwt.claim. scope', valid_user ->> 'scope', true); -- If is_local is true, the new value will only apply for the current transaction.
-          --Deprecated tx := set_config('request.jwt.claim. key', valid_user ->> 'key', true); -- If is_local is true, the new value will only apply for the current transaction.
-          -- [Set role to token scope]
-          -- role is not Hobby friendly
-          -- Execute(format('set role %s',(valid_user ->> 'scope')));
     
         EXCEPTION
             when sqlstate '22023' then 
@@ -94,6 +83,5 @@ module.exports = class CreateFunctionValidateToken extends Step {
       --grant EXECUTE on FUNCTION ${this.name}(TEXT,TEXT) to api_user;
     */
     `;
-    // console.log('CreateFunction', this.sql);
   }    
 };

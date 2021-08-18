@@ -32,7 +32,10 @@ const CreateFunctionVerify = require('./db/function_create_verify.js');
 const CreateFunctionTime = require('./db/function_create_time.js');
 const CreateFunctionSignin = require('./db/function_create_signin.js');
 const CreateFunctionSignup = require('./db/function_create_signup.js');
-const TestTable = require('./db/table_create_test.js');
+// const TestTable = require('./db/table_create_test.js');
+const BaseTests = require('./tests/test_base.js');
+const ApiTests = require('./tests/test_api.js');
+
 
 // run all scripts
 // Creates have an order
@@ -58,11 +61,15 @@ for (let env in process.env) {
 // [* Build database]
 // [* support multiple versions]
 const runner = new SqlRunner(DB_URL)
+       .add(new Comment('-- Load Extensions --'))
        .add(new CreateExtension('pgcrypto','public'))
        .add(new CreateExtension('"uuid-ossp"','public'))
+       .add(new Comment('-- Create Schema --'))
        .add(new CreateSchema('base', baseVersion))
        .add(new CreateSchema('api', apiVersion))
+       .add(new Comment('-- Create Base Schema Table --'))
        .add(new CreateTable('base',baseVersion))
+       .add(new Comment('-- Create Base Schema Functions --'))
        .add(new CreateFunctionUrlDecode('base', baseVersion))
        .add(new CreateFunctionUrlEncode('base', baseVersion))
        .add(new CreateFunctionAlgorithmSign('base', baseVersion))
@@ -82,21 +89,19 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateFunctionValidateForm('base', baseVersion))
        .add(new CreateFunctionValidateToken('base', baseVersion))
        .add(new CreateFunctionVerify('base', baseVersion))
+       .add(new Comment('-- Create Api Schema Functions --'))
        .add(new CreateFunctionTime('api', apiVersion))
-       .add(new CreateFunctionSignin('api', apiVersion))
        .add(new CreateFunctionSignup('api', apiVersion))
+       .add(new CreateFunctionSignin('api', apiVersion))
        ;
 // [* Tests]
 if (process.env.NODE_ENV != 'production') {
   // [Run tests in non-production environments]
   if (!('NPM_CONFIG_PRODUCTION' in process.env)) {
-    // [Setup Testing extension only in local development and review environments]
-    console.log('Enable testing');
+    // [* add db base tests]
     runner
-       .add(new Comment('-- Enable Testing'))
-       .add(new CreateExtension('pgtap','public'))
-       .add(new TestTable('base', baseVersion));
-
+      .load(new BaseTests(baseVersion))
+      .load(new ApiTests(apiVersion, baseVersion));
   }  
 }
 
