@@ -56,20 +56,20 @@ for (let env in process.env) {
     DB_URL=process.env[env];
   }
 }
-let testable = true;
+let testable = false;
 if (process.env.DATABASE_URL === DB_URL) {
-  // [* No testing in staging]
-  // [* No testing in production]
-  // [* Test in review]
+  // [* No testing in Heroku staging]
+  // [* No testing in Heroku production]
+  // [* No testing in Heroku review]
   // [* Test in local development]
-  if (process.env.NODE_ENV === 'production') {
-    testable = false;
+  if (process.env.NODE_ENV === 'developmemt') {
+    testable = true;
   }
 }
-console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
+// console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
 // console.log('DATABASE_URL', process.env.DATABASE_URL);
 // console.log('DB_URL', DB_URL);
-console.log('testable', testable);
+// console.log('testable', testable);
 
 // [* Build database]
 // [* support multiple versions]
@@ -115,17 +115,7 @@ if (testable) {
       .load(new ApiTests(apiVersion, baseVersion));
 
 }
-/*
-if (process.env.NODE_ENV !== 'production') {
-  // [Run tests in non-production environments]
-  if (!('NPM_CONFIG_PRODUCTION' in process.env)) {
-    // [* add db base tests]
-    runner
-      .load(new BaseTests(baseVersion))
-      .load(new ApiTests(apiVersion, baseVersion));
-  }  
-}
-*/
+
 runner.run();
 
 

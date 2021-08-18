@@ -31,17 +31,28 @@ for (let env in process.env) {
     DB_URL=process.env[env];
   }
 }
-console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
-// console.log('DATABASE_URL', process.env.DATABASE_URL);
-// console.log('DB_URL', DB_URL);
-// console.log('testable', testable);
-// console.log('DB_URL', DB_URL);
+let testable = false;
+if (process.env.DATABASE_URL === DB_URL) {
+  // [* No testing in Heroku staging]
+  // [* No testing in Heroku production]
+  // [* No testing in Heroku review]
+  // [* Test in local development]
+  if (process.env.NODE_ENV === 'developmemt') {
+    testable = true;
+  }
+}
+
 // [* Build database]
 // [* support multiple versions]
-new SqlRunner(DB_URL)
-  .load(new BaseTests(baseVersion))
-  .load(new ApiTests(apiVersion))
-  .run();
+// [* Tests]
+if (testable) {
+
+  new SqlRunner(DB_URL)
+    .load(new BaseTests(baseVersion))
+    .load(new ApiTests(apiVersion, baseVersion))
+    .run();
+
+}
 
 
 
