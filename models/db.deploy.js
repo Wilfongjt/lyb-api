@@ -51,9 +51,10 @@ if (!process.env.DATABASE_URL) {
   throw new Error('Improper Environment, DATABASE_URL is not set!');
 }
 // [* Switch to heroku color url when available]
-let DB_URL = (new DatabaseUrl(process)).db_url; 
-
-let testable = false;
+const databaseUrl = new DatabaseUrl(process);
+const DB_URL = databaseUrl.db_url; 
+const testable = databaseUrl.testable;
+/*
 if (process.env.DATABASE_URL === DB_URL) {
   // [* No testing in Heroku staging]
   // [* No testing in Heroku production]
@@ -74,6 +75,7 @@ if (process.env.DATABASE_URL === DB_URL) {
     console.log('Staging Database Connection');
   }
 }
+*/
 // console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
 // console.log('DATABASE_URL', process.env.DATABASE_URL);
 // console.log('DB_URL', DB_URL);
