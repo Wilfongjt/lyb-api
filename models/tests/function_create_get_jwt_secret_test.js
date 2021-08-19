@@ -4,6 +4,7 @@ const Step = require('../../lib/runner/step');
 
 module.exports = class CreateFunctiongetJwtSecretTest extends Step {
   constructor(kind, baseVersion) {
+    // $lab:coverage:off$
     super(kind, baseVersion);
     this.name = 'get_jwt_secret';
     this.name = `${this.kind}_${this.version}.${this.name}`;
@@ -33,5 +34,6 @@ module.exports = class CreateFunctiongetJwtSecretTest extends Step {
   
   ROLLBACK;
     `;
+    // $lab:coverage:on$
   }    
 };

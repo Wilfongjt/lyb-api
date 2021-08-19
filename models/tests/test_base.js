@@ -8,11 +8,12 @@ const CreateFunctionChangedKeyTest = require('./function_create_changed_key_test
 const CreateFunctionChelateTest = require('./function_create_chelate_test.js'); 
 const CreateFunctionDeleteTest = require('./function_create_delete_test.js'); 
 const CreateFunctionGetJwtClaimsTest = require('./function_create_get_jwt_claims_test.js'); 
+/* $lab:coverage:off$ */
 const CreateFunctionGetJwtSecretTest = require('./function_create_get_jwt_secret_test.js'); 
 const CreateFunctionInsertTest = require('./function_create_insert_test.js'); 
 const CreateFunctionQueryTest = require('./function_create_query_test.js'); 
-
-const CreateFunctionUpdateTest = require('./function_create_update_test.js'); 
+const CreateFunctionUpdateTest = require('./function_create_update_test.js');
+/* $lab:coverage:on$ */
 const CreateFunctionValidateChelateTest = require('./function_create_validate_chelate_test.js'); 
 const CreateFunctionValidateCredentialsTest = require('./function_create_validate_credentials_test.js'); 
 const CreateFunctionValidateFormTest = require('./function_create_validate_form_test.js'); 
@@ -20,6 +21,7 @@ const CreateFunctionValidateTokenTest = require('./function_create_validate_toke
 
 module.exports = class BaseTests extends Array {
   constructor(baseVersion) {
+    /* $lab:coverage:off$ */
     super();
     this.push(new Comment('-- Enable Base Testing'));
     this.push(new CreateExtension('pgtap','public'));
@@ -39,7 +41,7 @@ module.exports = class BaseTests extends Array {
     this.push(new CreateFunctionValidateCredentialsTest('base', baseVersion));
     this.push(new CreateFunctionValidateFormTest('base', baseVersion));
     this.push(new CreateFunctionValidateTokenTest('base', baseVersion));
-    
+    /* $lab:coverage:on$ */
 
   }    
 };

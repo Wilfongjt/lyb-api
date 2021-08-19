@@ -3,6 +3,7 @@
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionGetJwtClaimsTest extends Step {
   constructor(kind, baseVersion) {
+    // $lab:coverage:off$
     super(kind, baseVersion);
     this.name = 'get_jwt_claims';
     this.name = `${this.kind}_${this.version}.${this.name}`;
@@ -51,5 +52,6 @@ module.exports = class CreateFunctionGetJwtClaimsTest extends Step {
   
   ROLLBACK;
     `;
+    // $lab:coverage:on$
   }    
 };
