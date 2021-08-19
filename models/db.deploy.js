@@ -3,7 +3,7 @@
 
 console.log('db.deploy');
 // const process = require('process');
-const Consts = require('../lib/constants/consts');
+// const Consts = require('../lib/constants/consts');
 const SqlRunner = require('../lib/runner/runner_sql.js');
 const Comment = require('../lib/runner/comment.js');
 const CreateExtension = require('./db/extension_create.js');
@@ -35,7 +35,7 @@ const CreateFunctionSignup = require('./db/function_create_signup.js');
 // const TestTable = require('./db/table_create_test.js');
 const BaseTests = require('./tests/test_base.js');
 const ApiTests = require('./tests/test_api.js');
-
+const DatabaseUrl = require('../lib/plugins/postgres/database_url.js');
 
 // run all scripts
 // Creates have an order
@@ -46,16 +46,13 @@ const ApiTests = require('./tests/test_api.js');
 const baseVersion='0_0_1';
 const apiVersion='0_0_1';
 
-// CREATE SCHEMA if not exists api_0_0_1;';
-// [* switch to heroku color url when available]
-let DB_URL=process.env.DATABASE_URL;
-const regex = new RegExp(Consts.databaseUrlPattern());
-for (let env in process.env) {
-  if (regex.test(env)) {
-    console.log('setting ', env);
-    DB_URL=process.env[env];
-  }
+if (!process.env.DATABASE_URL) {
+  // [* Stop when DATABASE_URL is not available.]
+  throw new Error('Improper Environment, DATABASE_URL is not set!');
 }
+// [* Switch to heroku color url when available]
+let DB_URL = (new DatabaseUrl(process)).db_url; 
+
 let testable = false;
 if (process.env.DATABASE_URL === DB_URL) {
   // [* No testing in Heroku staging]
@@ -64,11 +61,22 @@ if (process.env.DATABASE_URL === DB_URL) {
   // [* Test in local development]
   if (process.env.NODE_ENV === 'developmemt') {
     testable = true;
+    console.log('Development Database Connection');
+  } else {
+    console.log('Production Database Connection');
+  }
+} else {
+  console.log("Branch", process.env.HEROKU_BRANCH);
+  if (process.env.HEROKU_BRANCH) {
+    console.log('Review Database Connection');
+  } else {
+    // staging db
+    console.log('Staging Database Connection');
   }
 }
-console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
+// console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
 // console.log('DATABASE_URL', process.env.DATABASE_URL);
-console.log('DB_URL', DB_URL);
+// console.log('DB_URL', DB_URL);
 // console.log('testable', testable);
 
 // [* Build database]
