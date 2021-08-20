@@ -3,6 +3,7 @@
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionSignupTest extends Step {
   constructor(kind, apiVersion, baseVersion) {
+    // $lab:coverage:off$
     super(kind, apiVersion);
     this.baseVersion=baseVersion;
     this.baseKind='base';
@@ -233,6 +234,7 @@ module.exports = class CreateFunctionSignupTest extends Step {
   ROLLBACK;
     `;
     // console.log('signup test', this.sql);
+    // $lab:coverage:on$
   }    
   
 };

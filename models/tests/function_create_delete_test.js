@@ -3,6 +3,7 @@
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionDeleteTest extends Step {
   constructor(kind, baseVersion) {
+    // $lab:coverage:off$
     super(kind, baseVersion);
 
     this.name = '\'delete\'';
@@ -72,6 +73,6 @@ module.exports = class CreateFunctionDeleteTest extends Step {
     
     END;
     `;
-     
+     // $lab:coverage:on$
   }    
 };

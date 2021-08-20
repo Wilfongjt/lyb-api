@@ -3,11 +3,11 @@
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionCreateValidateTokenTest extends Step {
   constructor(kind, baseVersion) {
+    // $lab:coverage:off$
     super(kind, baseVersion);
     this.name = 'validate_token';
     this.name = `${this.kind}_${this.version}.${this.name}`;
     this.jwt_secret = `${this.kind}_${this.version}.get_jwt_secret()`;
-  
     this.claims = `${this.kind}_${this.version}.get_jwt_claims('guest', 'api_guest', '0')`;
     this.guest_token = `${this.kind}_${this.version}.sign(${this.claims}::JSON, ${this.jwt_secret}::TEXT)`;
   
@@ -63,5 +63,7 @@ module.exports = class CreateFunctionCreateValidateTokenTest extends Step {
   
   ROLLBACK;
     `;
+    // $lab:coverage:on$ 
+
   }    
 };

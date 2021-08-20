@@ -3,6 +3,7 @@
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionValidateCredentialsTest extends Step {
   constructor(kind, baseVersion) {
+    // $lab:coverage:off$
     super(kind, baseVersion);
     this.name = 'validate_credentials';
     this.name = `${this.kind}_${this.version}.${this.name}`;
@@ -30,5 +31,6 @@ module.exports = class CreateFunctionValidateCredentialsTest extends Step {
 
   ROLLBACK;
     `;
+  // $lab:coverage:on$  
   }    
 };

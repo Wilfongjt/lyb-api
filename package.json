@@ -8,8 +8,9 @@
     "dev": "nodemon ./server.js",
     "start": "node server.js",
     "db-test": "node models/db.test.js",
-    "test": "lab -l -v */*.test.js",
-    "lint": "eslint '**/*.js?(x)'"
+    "test": "lab -v */*.test.js",
+    "lint1": "eslint '*/*.js'",
+    "lint": "eslint '**/*.js?(x)' ."
   },
   "author": "James Wilfong <wilfongjt@gmail.com>",
   "license": "ISC",

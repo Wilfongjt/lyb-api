@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 /* eslint-disable no-undef */
 
 console.log('db.deploy');
 // const process = require('process');
-const Consts = require('../lib/constants/consts');
+// const Consts = require('../lib/constants/consts');
 const SqlRunner = require('../lib/runner/runner_sql.js');
 const Comment = require('../lib/runner/comment.js');
 const CreateExtension = require('./db/extension_create.js');
@@ -35,7 +35,7 @@ const CreateFunctionSignup = require('./db/function_create_signup.js');
 // const TestTable = require('./db/table_create_test.js');
 const BaseTests = require('./tests/test_base.js');
 const ApiTests = require('./tests/test_api.js');
-
+const DatabaseUrl = require('../lib/plugins/postgres/database_url.js');
 
 // run all scripts
 // Creates have an order
@@ -45,19 +45,51 @@ const ApiTests = require('./tests/test_api.js');
 
 const baseVersion='0_0_1';
 const apiVersion='0_0_1';
-
-// CREATE SCHEMA if not exists api_0_0_1;';
-// [* switch to heroku color url when available]
-let DB_URL=process.env.DATABASE_URL;
-const regex = new RegExp(Consts.databaseUrlPattern());
-for (let env in process.env) {
-  if (regex.test(env)) {
-    console.log('setting ', env);
-    DB_URL=process.env[env];
-  }
+if (!process.env.NODE_ENV) {
+  // [* Stop when NODE_ENV is not available.]
+  throw new Error('Improper Environment, NODE_ENV is not set!');
 }
 
+if (!process.env.JWT_SECRET) {
+  console.log('process.env', process.env);
+  // [* Stop when NODE_ENV is not available.]
+  throw new Error('Improper Environment, POSTGRES_JWT_SECRET is not set!');
+}
+if (!process.env.DATABASE_URL) {
+  // [* Stop when DATABASE_URL is not available.]
+  throw new Error('Improper Environment, DATABASE_URL is not set!');
+}
+// [* Switch to heroku color url when available]
+const databaseUrl = new DatabaseUrl(process);
+const DB_URL = databaseUrl.db_url; 
+const testable = databaseUrl.testable;
+/*
+if (process.env.DATABASE_URL === DB_URL) {
+  // [* No testing in Heroku staging]
+  // [* No testing in Heroku production]
+  // [* No testing in Heroku review]
+  // [* Test in local development]
+  if (process.env.NODE_ENV === 'developmemt') {
+    testable = true;
+    console.log('Development Database Connection');
+  } else {
+    console.log('Production Database Connection');
+  }
+} else {
+  console.log("Branch", process.env.HEROKU_BRANCH);
+  if (process.env.HEROKU_BRANCH) {
+    console.log('Review Database Connection');
+  } else {
+    // staging db
+    console.log('Staging Database Connection');
+  }
+}
+*/
+// console.log('process.env.NODE_ENV ',process.env.NODE_ENV );
+// console.log('DATABASE_URL', process.env.DATABASE_URL);
 // console.log('DB_URL', DB_URL);
+// console.log('testable', testable);
+
 // [* Build database]
 // [* support multiple versions]
 const runner = new SqlRunner(DB_URL)
@@ -77,7 +109,7 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateFunctionChelate('base', baseVersion))
        .add(new CreateFunctionDelete('base', baseVersion))
        .add(new CreateFunctionGetJwtClaims('base', baseVersion))
-       .add(new CreateFunctionGetJwtSecret('base', baseVersion))
+       .add(new CreateFunctionGetJwtSecret('base', baseVersion, process))
        .add(new CreateFunctionInsert('base', baseVersion))
        .add(new CreateFunctionQuery('base', baseVersion))
        .add(new CreateFunctionSign('base', baseVersion))
@@ -95,14 +127,12 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateFunctionSignin('api', apiVersion))
        ;
 // [* Tests]
-if (process.env.NODE_ENV != 'production') {
-  // [Run tests in non-production environments]
-  if (!('NPM_CONFIG_PRODUCTION' in process.env)) {
-    // [* add db base tests]
+if (testable) {
+
     runner
       .load(new BaseTests(baseVersion))
       .load(new ApiTests(apiVersion, baseVersion));
-  }  
+
 }
 
 runner.run();

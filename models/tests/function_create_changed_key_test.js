@@ -1,9 +1,8 @@
 'use strict';
-
-
 const Step = require('../../lib/runner/step');
 module.exports = class CreateFunctionChangedKeyTest extends Step {
   constructor(kind, baseVersion) {
+    // $lab:coverage:off$
     super(kind, baseVersion);
     this.name = 'changed_key';
     this.name = `${this.kind}_${this.version}.${this.name}`;
@@ -305,5 +304,6 @@ module.exports = class CreateFunctionChangedKeyTest extends Step {
   
   ROLLBACK;
     `;
+    // $lab:coverage:on$
   }    
 };
