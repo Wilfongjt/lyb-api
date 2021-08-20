@@ -45,7 +45,16 @@ const DatabaseUrl = require('../lib/plugins/postgres/database_url.js');
 
 const baseVersion='0_0_1';
 const apiVersion='0_0_1';
+if (!process.env.NODE_ENV) {
+  // [* Stop when NODE_ENV is not available.]
+  throw new Error('Improper Environment, NODE_ENV is not set!');
+}
 
+if (!process.env.JWT_SECRET) {
+  console.log('process.env', process.env);
+  // [* Stop when NODE_ENV is not available.]
+  throw new Error('Improper Environment, POSTGRES_JWT_SECRET is not set!');
+}
 if (!process.env.DATABASE_URL) {
   // [* Stop when DATABASE_URL is not available.]
   throw new Error('Improper Environment, DATABASE_URL is not set!');
@@ -100,7 +109,7 @@ const runner = new SqlRunner(DB_URL)
        .add(new CreateFunctionChelate('base', baseVersion))
        .add(new CreateFunctionDelete('base', baseVersion))
        .add(new CreateFunctionGetJwtClaims('base', baseVersion))
-       .add(new CreateFunctionGetJwtSecret('base', baseVersion))
+       .add(new CreateFunctionGetJwtSecret('base', baseVersion, process))
        .add(new CreateFunctionInsert('base', baseVersion))
        .add(new CreateFunctionQuery('base', baseVersion))
        .add(new CreateFunctionSign('base', baseVersion))
