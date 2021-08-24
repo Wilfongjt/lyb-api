@@ -78,7 +78,7 @@ jobs:
       #    HOST: "0.0.0.0"
 
       # This is the heroku deploy action
-      - Heroku Deploy
+      - name: Heroku Deploy
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
