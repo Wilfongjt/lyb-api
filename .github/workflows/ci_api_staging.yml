@@ -57,15 +57,14 @@ jobs:
           npm ci --prefer-offline --no-audit
           npm install @hapi/lab @hapi/code
           npm run build --if-present
+
+      - name: Run tests 🧪
+        run: npm run test
         env:
           JWT_SECRET: ${{secrets.JWT_SECRET}}
           API_TOKEN: ${{secrets.API_TOKEN}}
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           HOST: "0.0.0.0"
-
-      - name: Run tests 🧪
-        run: npm run test
-
       # - run: | 
       #    npm install 
       #    npm install @hapi/lab @hapi/code 
